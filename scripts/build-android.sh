@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export ANDROID_HOME="${ANDROID_HOME:-$HOME/android-sdk}"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+if [[ ! -d "$ANDROID_HOME/platforms" ]]; then
+  echo "Android SDK not found at $ANDROID_HOME" >&2
+  exit 1
+fi
+cd "$ROOT"
+npm run build --workspace @neofile/web
+npm run cap:sync --workspace @neofile/web
+printf 'sdk.dir=%s\n' "$ANDROID_HOME" > "$ROOT/apps/web/android/local.properties"
+cd "$ROOT/apps/web/android"
+chmod +x ./gradlew
+./gradlew assembleRelease --no-daemon
+APK="$ROOT/apps/web/android/app/build/outputs/apk/release/app-release.apk"
+mkdir -p "$ROOT/artifacts"
+cp "$APK" "$ROOT/artifacts/NeoFile-release.apk"
+echo "APK: $ROOT/artifacts/NeoFile-release.apk"
+"$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$ROOT/artifacts/NeoFile-release.apk" || true

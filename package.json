@@ -1,0 +1,29 @@
+{
+  "name": "neofile",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NeoFile — offline, local-only file desk for Windows and Android.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @neofile/web",
+    "build": "npm run build --workspace @neofile/web",
+    "test": "vitest run",
+    "typecheck": "tsc -p packages/core/tsconfig.json --noEmit && tsc -p apps/web/tsconfig.json --noEmit",
+    "size": "node scripts/size-budget.mjs",
+    "desktop:dev": "npm run dev --workspace @neofile/desktop",
+    "desktop:build": "npm run build --workspace @neofile/desktop",
+    "android:apk": "bash scripts/build-android.sh"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.5",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
