@@ -1,0 +1,12 @@
+# Himanshu Pathak (@Himanshu-5680) owns this repository.
+# A review is requested on every pull request.
+
+* @Himanshu-5680
+
+# Release signing, filesystem scope, and the Android network ban.
+/.github/workflows/release.yml @Himanshu-5680
+/scripts/build-android.sh @Himanshu-5680
+/scripts/build-ios-unsigned.sh @Himanshu-5680
+/apps/desktop/src-tauri/capabilities/ @Himanshu-5680
+/apps/web/android/app/src/main/AndroidManifest.xml @Himanshu-5680
+/packages/core/src/sanitize.ts @Himanshu-5680
