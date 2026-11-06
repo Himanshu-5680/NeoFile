@@ -25,4 +25,8 @@ artifacts/*.dmg
 
 .capacitor/
 *.jks
-!apps/web/signing/*.keystore
+*.keystore
+*.p12
+*.pfx
+*.pem
+apps/web/signing/
