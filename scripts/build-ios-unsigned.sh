@@ -19,6 +19,7 @@ xcodebuild \
   CODE_SIGNING_ALLOWED=NO \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGN_IDENTITY="" \
+  DEVELOPMENT_TEAM="" \
   build
 APP="$(find "$DERIVED" -type d -name 'App.app' -path '*Release-iphoneos*' | head -1)"
 if [[ -z "$APP" ]]; then
@@ -29,7 +30,8 @@ STAGE="$(mktemp -d)"
 mkdir -p "$STAGE/Payload"
 cp -R "$APP" "$STAGE/Payload/App.app"
 mkdir -p "$ROOT/artifacts"
-OUT="$ROOT/artifacts/NeoFile-1.0.0-unsigned.ipa"
+VER="${NEOFILE_VERSION:-1.0.0}"
+OUT="$ROOT/artifacts/NeoFile-${VER}-unsigned.ipa"
 rm -f "$OUT"
 (cd "$STAGE" && zip -qry "$OUT" Payload)
 echo "Unsigned IPA: $OUT"

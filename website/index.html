@@ -200,6 +200,7 @@
           </div>
           <div class="tab-panel panel-android">
             <p>Copy the APK to the phone and open it. Allow install from your files app if Android asks. This build does not request network access.</p>
+            <p>If the release notes say the APK was signed with a throwaway CI key, it still installs. A later build signed with a different key will not update over it until you uninstall the old app.</p>
           </div>
           <div class="tab-panel panel-windows">
             <p>Run the setup exe or the MSI. SmartScreen can say “Windows protected your PC” because the installer is not Authenticode-signed. Choose More info, then Run anyway.</p>
