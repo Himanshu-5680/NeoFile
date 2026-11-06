@@ -122,7 +122,7 @@ npm run dev
 
 Pushing a `v*` tag runs `.github/workflows/release.yml`, which builds all of the above and attaches them to a GitHub Release.
 
-The release workflow signs the APK from GitHub Actions secrets, not from a keystore in the repo. Set `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS`.
+The release workflow signs the APK from GitHub Actions secrets when they are set: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS`. None of those values are stored in git. If the keystore secret is missing, `scripts/build-android.sh` generates a throwaway key on the runner, signs the APK so it can be installed, and discards the key. The GitHub Release notes say when that happened. A throwaway key is not a Play Store identity, and a later APK signed with a different key will not update over it until the old app is uninstalled.
 
 ## Tech stack
 
