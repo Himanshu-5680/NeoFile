@@ -1,0 +1,31 @@
+name: Feature request
+description: A change that stays offline and does not pretend to be a full Office editor.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is hard to do in NeoFile today?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should it do?
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Where should it work?
+      multiple: true
+      options:
+        - Android
+        - Windows
+        - macOS
+        - iOS
+        - Linux
+        - All of them
+    validations:
+      required: true

@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in NeoFile broke, on a specific platform.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Android
+        - Windows
+        - macOS
+        - iOS
+        - Linux
+        - Browser
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: NeoFile version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Include the file type if a document failed to open.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true

@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
@@ -11,6 +11,7 @@ function walk(dir) {
   for (const name of readdirSync(dir)) {
     if (skip.has(name) || name.startsWith(".")) continue;
     const path = join(dir, name);
+    if (path.includes(join("ios", "App", "App", "public")) || path.includes(join("android", "app", "src", "main", "assets"))) continue;
     const stat = statSync(path);
     if (stat.isDirectory()) {
       if (path.endsWith("/android/app/build") || path.includes("/src-tauri/gen")) continue;

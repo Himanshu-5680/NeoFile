@@ -21,7 +21,6 @@ apps/desktop/src-tauri/gen/
 artifacts/*.aab
 artifacts/*.exe
 artifacts/*.msi
-artifacts/*.AppImage
 artifacts/*.dmg
 
 .capacitor/

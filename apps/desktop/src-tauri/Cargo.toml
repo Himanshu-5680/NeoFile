@@ -1,6 +1,6 @@
 [package]
 name = "neofile"
-version = "0.1.0"
+version = "1.0.0"
 description = "NeoFile offline file desk"
 authors = ["NeoFile"]
 edition = "2021"

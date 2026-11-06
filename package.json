@@ -1,8 +1,8 @@
 {
   "name": "neofile",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "NeoFile — offline, local-only file desk for Windows and Android.",
+  "description": "NeoFile — offline, local-only file desk for Android, Windows, macOS, iOS, and Linux.",
   "workspaces": [
     "packages/*",
     "apps/*"

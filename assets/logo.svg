@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">NeoFile</title>
+  <desc id="desc">A black capital N on a neon green square with a thick black border and a hard offset shadow.</desc>
+  <rect width="512" height="512" fill="#141414"/>
+  <rect x="24" y="24" width="420" height="420" fill="#C6FF3D" stroke="#141414" stroke-width="28"/>
+  <path fill="#141414" d="M132 148h68v236h-68V148zm180 0h68v236h-68V148zM200 148h64L380 384h-64L200 148z"/>
+</svg>
