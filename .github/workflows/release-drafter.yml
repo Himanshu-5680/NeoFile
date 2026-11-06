@@ -1,0 +1,22 @@
+name: Release Drafter
+
+on:
+  # Config is read from the default branch, so this runs after a merge to main.
+  # A pull_request trigger fails until that config exists on main.
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  draft:
+    name: Update the next release draft
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
