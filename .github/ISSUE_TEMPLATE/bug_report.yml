@@ -3,6 +3,10 @@ description: Something in NeoFile broke, on a specific platform.
 title: "[Bug] "
 labels: ["bug"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not attach a keystore, password, or a private document. A small synthetic file that shows the same failure is enough. Suspected vulnerabilities belong in a [private security advisory](https://github.com/Himanshu-5680/NeoFile/security/advisories/new).
   - type: dropdown
     id: platform
     attributes:
@@ -10,7 +14,8 @@ body:
       options:
         - Android
         - Windows
-        - macOS
+        - macOS Apple silicon
+        - macOS Intel
         - iOS
         - Linux
         - Browser
@@ -20,14 +25,30 @@ body:
     id: version
     attributes:
       label: NeoFile version
+      description: The release tag, for example 1.0.0. Browser builds can say "dev".
       placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: filetype
+    attributes:
+      label: File type
+      description: Extension of the file you opened, if the bug is about viewing or editing.
+      placeholder: csv
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open budget.csv
+        2. Edit the quoted field in row 2
+        3. Save
     validations:
       required: true
   - type: textarea
     id: what
     attributes:
       label: What happened
-      description: Include the file type if a document failed to open.
     validations:
       required: true
   - type: textarea
@@ -36,3 +57,10 @@ body:
       label: What you expected
     validations:
       required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I did not include a private document, keystore, or password.
+          required: true

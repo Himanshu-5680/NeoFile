@@ -1,2 +1,11 @@
 blank_issues_enabled: false
-contact_links: []
+contact_links:
+  - name: Security report
+    url: https://github.com/Himanshu-5680/NeoFile/security/advisories/new
+    about: Report a vulnerability in private. Do not open a public issue.
+  - name: Support guide
+    url: https://github.com/Himanshu-5680/NeoFile/blob/main/SUPPORT.md
+    about: Where to ask for install help, and what the project cannot support.
+  - name: Project website
+    url: https://himanshu-5680.github.io/NeoFile/
+    about: Download links, screenshots, and the per-platform install steps.
