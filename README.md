@@ -13,6 +13,15 @@
   <a href="https://github.com/Himanshu-5680/NeoFile/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Himanshu-5680/NeoFile/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/Himanshu-5680/NeoFile/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/Himanshu-5680/NeoFile?display_name=tag"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/Himanshu-5680/NeoFile"></a>
+  <a href="https://himanshu-5680.github.io/NeoFile/"><img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fhimanshu-5680.github.io%2FNeoFile%2F&label=docs&up_message=online&down_message=offline"></a>
+</p>
+
+<p align="center">
+  <img alt="Android" src="https://img.shields.io/badge/Android-APK-3DDC84?logo=android&logoColor=white">
+  <img alt="iOS" src="https://img.shields.io/badge/iOS-unsigned%20IPA-000000?logo=apple&logoColor=white">
+  <img alt="Windows" src="https://img.shields.io/badge/Windows-exe%20%7C%20msi-0078D6?logo=windows&logoColor=white">
+  <img alt="macOS" src="https://img.shields.io/badge/macOS-arm64%20%7C%20x64-111111?logo=apple&logoColor=white">
+  <img alt="Linux" src="https://img.shields.io/badge/Linux-deb%20%7C%20AppImage-FCC624?logo=linux&logoColor=black">
 </p>
 
 <p align="center">
@@ -140,14 +149,28 @@ apps/web/ios            iOS project
 apps/desktop            Tauri shell
 packages/core           parsing, snapshots, search, theme, tests
 docs/screenshots        captures of the running app
+docs/wiki               install, build, FAQ, and architecture pages
+website                 static project site
 scripts                 icon render, APK, unsigned IPA, Windows installer
-.github/workflows       CI and the multi-platform release
+.github/workflows       CI, Pages, and the multi-platform release
 ```
+
+## Docs
+
+The project site is [himanshu-5680.github.io/NeoFile](https://himanshu-5680.github.io/NeoFile/). Wiki-ready pages are in [docs/wiki](docs/wiki/Home.md): install steps per platform, [building from source](docs/wiki/Building-from-source.md), the [FAQ](docs/wiki/FAQ.md), and [architecture](docs/wiki/Architecture.md). The [roadmap](docs/ROADMAP.md) lists what 1.0 ships and what is intentionally out of scope.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Changes that need a network service do not fit this app.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Changes that need a network service do not fit this app. Community expectations are in the [code of conduct](CODE_OF_CONDUCT.md). Vulnerability reports go through [SECURITY.md](SECURITY.md). Install questions start at [SUPPORT.md](SUPPORT.md).
+
+## Contributors
+
+- [Himanshu Pathak](https://github.com/Himanshu-5680)
+- [pavitra-prabhakar](https://github.com/pavitra-prabhakar)
+- [vectornomadhp88](https://github.com/vectornomadhp88)
+- [Cursor](https://cursor.com)
+- Built with Grok Bot
 
 ## License
 
-[MIT](LICENSE). PDF.js and SheetJS community are Apache-2.0. Mammoth is BSD. CodeMirror and JSZip are MIT. The bundled fonts are SIL Open Font License.
+[MIT](LICENSE). PDF.js and SheetJS community are Apache-2.0. Mammoth is BSD. CodeMirror and JSZip are MIT. The bundled fonts are SIL Open Font License. The website layout pass credits unslop by Damir Sokolovsky, CC BY 4.0, in the site footer.
