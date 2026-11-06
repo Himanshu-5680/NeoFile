@@ -1,10 +1,10 @@
 name: Release Drafter
 
 on:
+  # Config is read from the default branch, so this runs after a merge to main.
+  # A pull_request trigger fails until that config exists on main.
   push:
     branches: [main]
-  pull_request:
-    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
