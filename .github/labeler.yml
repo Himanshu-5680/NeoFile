@@ -1,0 +1,49 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "website/**"
+          - "**/*.md"
+
+android:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/web/android/**"
+          - "scripts/build-android.sh"
+
+ios:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/web/ios/**"
+          - "scripts/build-ios-unsigned.sh"
+
+windows:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "scripts/build-windows.ps1"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
+          - ".github/dependabot.yml"
+          - ".github/labeler.yml"
+          - ".github/release-drafter.yml"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "package.json"
+          - "package-lock.json"
+          - "apps/**/package.json"
+          - "packages/**/package.json"
+          - "apps/desktop/src-tauri/Cargo.toml"
+          - "apps/desktop/src-tauri/Cargo.lock"
+
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/core/src/sanitize.ts"
+          - "SECURITY.md"
+          - "apps/web/android/app/src/main/AndroidManifest.xml"
+          - "apps/desktop/src-tauri/capabilities/**"

@@ -1,0 +1,43 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+categories:
+  - title: Features
+    labels:
+      - enhancement
+  - title: Fixes
+    labels:
+      - bug
+  - title: Documentation
+    labels:
+      - documentation
+  - title: Dependencies
+    labels:
+      - dependencies
+  - title: Other changes
+change-template: "- $TITLE (#$NUMBER) @$AUTHOR"
+exclude-labels:
+  - skip-changelog
+version-resolver:
+  major:
+    labels:
+      - major
+  minor:
+    labels:
+      - enhancement
+  patch:
+    labels:
+      - bug
+      - documentation
+      - dependencies
+  default: patch
+template: |
+  ## Changes
+
+  $CHANGES
+
+  ## Install
+
+  Windows and macOS builds are not signed by Microsoft or Apple. SmartScreen and Gatekeeper need the extra click described in the README. The iOS package is an unsigned IPA for AltStore or Sideloadly.
+
+  The Android APK is installable. If `ANDROID_KEYSTORE_BASE64` was not configured, the release notes from the release workflow say the APK was signed with a throwaway key generated on the runner.
+change-title-escapes: '\<*_&'

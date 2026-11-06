@@ -1,0 +1,63 @@
+# Source of truth for issue labels. .github/workflows/labels.yml syncs this file.
+# skip-delete is set, so labels that GitHub created by default are kept even if
+# they are listed here only to document the color.
+
+- name: bug
+  color: "d73a4a"
+  description: Something is broken
+
+- name: enhancement
+  color: "a2eeef"
+  description: New feature or improvement
+
+- name: documentation
+  color: "0075ca"
+  description: Documentation, website, or wiki
+
+- name: question
+  color: "d876e3"
+  description: Install or usage question
+
+- name: good first issue
+  color: "7057ff"
+  description: Good for newcomers
+
+- name: help wanted
+  color: "008672"
+  description: Extra attention needed
+
+- name: dependencies
+  color: "0366d6"
+  description: npm, Cargo, or Actions updates
+
+- name: security
+  color: "b60205"
+  description: Security-sensitive change
+
+- name: ci
+  color: "5319e7"
+  description: Continuous integration or release automation
+
+- name: android
+  color: "3ddc84"
+  description: Android app or APK
+
+- name: ios
+  color: "000000"
+  description: iOS app or unsigned IPA
+
+- name: windows
+  color: "0078d6"
+  description: Windows installer
+
+- name: macos
+  color: "555555"
+  description: macOS disk image
+
+- name: linux
+  color: "f0c929"
+  description: Linux deb or AppImage
+
+- name: release
+  color: "b8860b"
+  description: Release workflow or release notes

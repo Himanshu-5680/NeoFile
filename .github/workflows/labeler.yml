@@ -1,0 +1,20 @@
+name: Labeler
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    name: Apply path labels
+    runs-on: ubuntu-latest
+    steps:
+      # Uses the config on the default branch. It does not checkout the pull request.
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          sync-labels: false
