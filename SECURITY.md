@@ -48,10 +48,33 @@ absent, the Android job generates a throwaway key on the runner, signs the APK
 so it can be installed, and discards the key. Do not commit a `.keystore`,
 `.jks`, `.p12`, or private key to replace that behavior.
 
-## Known dependency constraint
+## Spreadsheet parser
 
-The `xlsx` package is SheetJS community edition. npm does not receive further
-security releases of that package. NeoFile uses it only on files the person
-using the app chooses to open. There is no server that parses uploads. Opening
-a spreadsheet from someone you do not trust is the same tradeoff as opening it
-in any local tool that uses this parser.
+SheetJS Community Edition stopped publishing to npm at 0.18.5. That release is
+affected by CVE-2023-30533 (prototype pollution while reading a workbook) and
+CVE-2024-22363 (regular-expression denial of service while reading). NeoFile
+reads workbooks the person opens, including in a background worker, so those
+bugs are on a user-controlled path.
+
+The web package depends on SheetJS CE 0.20.3 from the SheetJS CDN
+(`https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz`). That is the community
+release that includes the fixes for those two advisories. The lockfile records
+the tarball integrity. npm's `xlsx` package is not the dependency.
+
+This does not make every future spreadsheet file safe to open. Formula
+recalculation is still absent. Saving still writes cell values and drops
+charts, macros, and most formatting.
+
+## Other audit findings
+
+`npm audit` also reports `vitest`, `@vitest/mocker`, and `tinypool`. Those are
+dev dependencies of `vitest run`. They are not in the web, desktop, or mobile
+bundles. The Vitest issues need a reachable Vitest dev server, or an existing
+prototype-pollution gadget in the test process. This repo does not jump Vitest
+to 5.x for that.
+
+`pdfjs-dist` 5.7.284 is inside the version range of GHSA-hq66-cqwq-w95j. The
+installed build enables PDF scripting only when `enableScripting` is exactly
+true. NeoFile draws pages to a canvas and does not build an annotation layer.
+Production and desktop Content-Security-Policy set `script-src 'self'`. That
+is not a claim that later PDF.js bugs are harmless.

@@ -8,7 +8,8 @@ function productionCsp(): Plugin {
     "default-src 'self'",
     "base-uri 'self'",
     "object-src 'none'",
-    "frame-ancestors 'none'",
+    // frame-ancestors is ignored in a meta policy and Chrome reports it as an error.
+    // The desktop shell sets that directive in tauri.conf.json, where it is enforced.
     "form-action 'none'",
     "connect-src ipc: http://ipc.localhost https://ipc.localhost",
     "img-src 'self' blob: data:",

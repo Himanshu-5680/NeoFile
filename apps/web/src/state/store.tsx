@@ -26,6 +26,7 @@ import {
 import { decodeText, encodeText, looksBinary, mimeFor } from "@/lib/bytes";
 import { sheetTooBig, sheetsToXlsx } from "@/lib/sheets";
 import { filesFromDataTransfer, type DroppedFile } from "@/platform/drop";
+import { buildDroppedTree } from "@/state/dropped-tree";
 import {
   directoryToTree,
   dismissShare,
@@ -52,7 +53,7 @@ import {
 } from "@/platform/bridge";
 import { SAMPLES } from "@/samples";
 import { applyTheme } from "@/theme/apply";
-import { findNode, nodeBlobs, nodeDirs, parentChildren, sortNodes, visibleNodeIds } from "@/state/external";
+import { findNode, nodeBlobs, nodeDirs, parentChildren, visibleNodeIds } from "@/state/external";
 import { registry, type SheetModel } from "@/state/registry";
 import type { DocMeta, InboxItem, IngestInput, Shell, Toast, TreeNode } from "@/state/types";
 import { parseTable, parseWorkbook, searchDesk } from "@/workers/client";
@@ -1201,34 +1202,6 @@ function restoreSession(session: SessionDoc[] | null): DocMeta[] {
     restored.push({ ...item.meta, loading: false });
   }
   return restored;
-}
-
-function buildDroppedTree(dropped: DroppedFile[]): { root: TreeNode | null; idByFile: Map<File, string> } {
-  const idByFile = new Map<File, string>();
-  const rooted = dropped.some((item) => item.rel.includes("/"));
-  if (rooted) {
-    const rootName = dropped[0].rel.split("/")[0] || "Dropped folder";
-    const root: TreeNode = { id: `drop-${uid()}`, name: rootName, kind: "dir", children: [] };
-    for (const item of dropped) {
-      const parts = item.rel.split("/").filter(Boolean);
-      let cursor = root;
-      parts.forEach((part, index) => {
-        const last = index === parts.length - 1;
-        let child = cursor.children?.find((node) => node.name === part);
-        if (!child) {
-          child = { id: `drop-${uid()}`, name: part, kind: last ? "file" : "dir", children: last ? null : [] };
-          cursor.children = sortNodes([...(cursor.children ?? []), child]);
-          if (last) {
-            nodeBlobs.set(child.id, item.file);
-            idByFile.set(item.file, child.id);
-          }
-        }
-        if (!last && child.children) cursor = child;
-      });
-    }
-    return { root, idByFile };
-  }
-  return { root: null as TreeNode | null, idByFile };
 }
 
 export function useStore(): StoreApi {
