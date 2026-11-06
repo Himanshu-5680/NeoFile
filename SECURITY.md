@@ -65,16 +65,21 @@ This does not make every future spreadsheet file safe to open. Formula
 recalculation is still absent. Saving still writes cell values and drops
 charts, macros, and most formatting.
 
-## Other audit findings
+## Test runner
 
-`npm audit` also reports `vitest`, `@vitest/mocker`, and `tinypool`. Those are
-dev dependencies of `vitest run`. They are not in the web, desktop, or mobile
-bundles. The Vitest issues need a reachable Vitest dev server, or an existing
-prototype-pollution gadget in the test process. This repo does not jump Vitest
-to 5.x for that.
+`vitest` is pinned at 4.1.12. That release depends on `@vitest/mocker` 4.1.12,
+which includes the fixes for GHSA-82fw-gwwq-j7x9 and GHSA-qxg6-89mg-rqv8.
+Vitest 3.2.7 pulled `tinypool` 1.1.1 (GHSA-5gmw-xhrv-c9v3 and GHSA-85c8-ppgw-ccpr).
+Vitest 4.1.12 does not depend on `tinypool`, so that package is not installed.
+These packages are used by `vitest run`. They are not in the web, desktop, or
+mobile bundles. Vitest 5.x was not required for those advisories.
 
-`pdfjs-dist` 5.7.284 is inside the version range of GHSA-hq66-cqwq-w95j. The
-installed build enables PDF scripting only when `enableScripting` is exactly
-true. NeoFile draws pages to a canvas and does not build an annotation layer.
-Production and desktop Content-Security-Policy set `script-src 'self'`. That
-is not a claim that later PDF.js bugs are harmless.
+## PDF viewer
+
+`pdfjs-dist` is pinned at 6.2.108, the first release outside the affected range
+of GHSA-hq66-cqwq-w95j (`>=5.6.83 <6.2.108`). The installed build still enables
+PDF scripting only when `enableScripting` is exactly true. NeoFile draws pages
+to a canvas and a text layer. It does not build an annotation layer. Production
+and desktop Content-Security-Policy set `script-src 'self'`. A later 6.x
+release was not required to leave that advisory range. This is not a claim that
+every PDF is safe to open.

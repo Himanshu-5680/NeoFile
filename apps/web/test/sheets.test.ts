@@ -26,8 +26,7 @@ describe("spreadsheet parser", () => {
     const sheets = await sheetsFromXlsx(bytes);
     expect(Object.getOwnPropertyNames(Object.prototype)).toEqual(before);
     expect(sheets).toHaveLength(1);
-    expect(sheets[0].name.startsWith("Budget")).toBe(true);
-    expect(sheets[0].name.includes(":")).toBe(false);
+    expect(sheets[0].name).toBe("Budget draft");
     expect(sheets[0].rows[0]).toEqual(["month", "amount", "ok"]);
     expect(sheets[0].rows[1]).toEqual(["January", "12.5", "TRUE"]);
   });

@@ -29,8 +29,29 @@ describe("buildDroppedTree", () => {
     expect(labels(sub?.children)).toEqual(["file:b.txt"]);
     expect(built.root?.children?.some((node) => node.name === "Notes")).toBe(false);
     const alphaId = built.idByFile.get(alpha);
-    expect(alphaId).toBeTruthy();
+    const betaId = built.idByFile.get(beta);
+    expect(alphaId).toEqual(expect.any(String));
+    expect(betaId).toEqual(expect.any(String));
+    expect(alphaId).not.toBe(betaId);
     expect(await (nodeBlobs.get(alphaId!) as File).text()).toBe("alpha");
+    expect(await (nodeBlobs.get(betaId!) as File).text()).toBe("beta");
+    const rootFile = built.root?.children?.find((node) => node.name === "a.txt");
+    const nestedFile = sub?.children?.find((node) => node.name === "b.txt");
+    expect(rootFile?.id).toBe(alphaId);
+    expect(nestedFile?.id).toBe(betaId);
+  });
+
+  it("keeps same leaf names under different child folders", async () => {
+    const left = file("x.txt", "left");
+    const right = file("x.txt", "right");
+    const built = buildDroppedTree([
+      { file: left, rel: "Photos/a/x.txt" },
+      { file: right, rel: "Photos/b/x.txt" },
+    ]);
+    expect(built.root?.name).toBe("Photos");
+    expect(labels(built.root?.children)).toEqual(["dir:a", "dir:b"]);
+    expect(await (nodeBlobs.get(built.idByFile.get(left)!) as File).text()).toBe("left");
+    expect(await (nodeBlobs.get(built.idByFile.get(right)!) as File).text()).toBe("right");
   });
 
   it("keeps separately dropped folders as siblings, including same file names", async () => {
