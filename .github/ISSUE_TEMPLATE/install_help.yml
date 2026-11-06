@@ -1,0 +1,52 @@
+name: Install question
+description: SmartScreen, Gatekeeper, sideloading, or a package that will not open.
+title: "[Install] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Windows and macOS builds are not signed by Microsoft or Apple. The iOS IPA is unsigned on purpose. Read the matching page under `docs/wiki` before opening this if you only need the click path.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Android
+        - Windows
+        - macOS Apple silicon
+        - macOS Intel
+        - iOS
+        - Linux
+    validations:
+      required: true
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package you downloaded
+      options:
+        - NeoFile APK
+        - Windows setup exe
+        - Windows MSI
+        - macOS arm64 DMG
+        - macOS x64 DMG
+        - Linux deb
+        - Linux AppImage
+        - iOS unsigned IPA
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Release tag
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: stuck
+    attributes:
+      label: Where did the install stop?
+      description: Quote the SmartScreen, Gatekeeper, Android, or iOS message if there is one.
+    validations:
+      required: true
