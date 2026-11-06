@@ -28,6 +28,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          # The workflow token can turn Pages on. A repository-admin API call is not available to this bot.
+          enablement: true
       - name: Upload the website directory
         uses: actions/upload-pages-artifact@v3
         with:
