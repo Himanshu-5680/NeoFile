@@ -1,0 +1,1 @@
+NeoFile is offline. [Security](https://github.com/Himanshu-5680/NeoFile/blob/main/SECURITY.md) · [Support](https://github.com/Himanshu-5680/NeoFile/blob/main/SUPPORT.md) · [MIT License](https://github.com/Himanshu-5680/NeoFile/blob/main/LICENSE)
