@@ -1,12 +1,21 @@
 name: CI
 
 on:
-  push:
   pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
+  lint-and-test:
+    name: Lint and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,6 +24,19 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test
-      - run: npm run build --workspace @neofile/web
-      - run: node scripts/size-budget.mjs
+      - name: Lint (TypeScript)
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Build the web UI
+        run: npm run build --workspace @neofile/web
+      - name: Source size budget
+        run: node scripts/size-budget.mjs
+      - name: Reject committed secrets
+        run: node scripts/check-no-secrets.mjs
+      - name: Shell syntax
+        run: |
+          bash -n scripts/build-android.sh
+          bash -n scripts/build-ios-unsigned.sh
+          node --check scripts/check-no-secrets.mjs
+          node --check scripts/size-budget.mjs
