@@ -46,7 +46,17 @@ jobs:
           yes | sdkmanager --licenses >/dev/null || true
           sdkmanager --install "platforms;android-35" "build-tools;35.0.0" "platform-tools"
       - run: npm ci
+      - name: Decode release keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          mkdir -p apps/web/signing
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > apps/web/signing/neofile-release.keystore
       - name: Build signed release APK
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: bash scripts/build-android.sh
       - name: Rename APK
         run: cp artifacts/NeoFile-release.apk artifacts/NeoFile-1.0.0.apk

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeoFile — open files on this device</title>
+    <meta name="description" content="NeoFile is an offline file desk for Android, Windows, macOS, iOS, and Linux. Edit text and CSV. Preview PDF, Word, and PowerPoint. Nothing is uploaded." />
+    <link rel="canonical" href="https://himanshu-5680.github.io/NeoFile/" />
+    <meta property="og:title" content="NeoFile" />
+    <meta property="og:description" content="Open text, sheets, and documents on this device. No account and no upload." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://himanshu-5680.github.io/NeoFile/" />
+    <meta property="og:image" content="https://himanshu-5680.github.io/NeoFile/media/og.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1c1915" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="media/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="media/apple-touch.png" />
+    <link rel="preload" href="fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      try {
+        var saved = localStorage.getItem("neofile-site-theme");
+        var dark = saved === "dark" || (!saved && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    </script>
+    <style>@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/space-grotesk-latin-400-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/space-grotesk-latin-700-normal.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}:root{--bg:#f4efe6;--surface:#fffdf8;--ink:#141414;--muted:#3f3a33;--line:#141414;--shadow:#141414;--green:#c6ff3d;--yellow:#ffe14a;--coral:#ff5c39;--sky:#5ec8ff;--violet:#c4a1ff;--on:#141414;--ease:cubic-bezier(0.22,1,0.36,1);--move:transform 150ms var(--ease) 10ms,background-color 150ms var(--ease) 10ms,color 150ms var(--ease) 10ms,box-shadow 150ms var(--ease) 10ms;--sans:"Space Grotesk","Avenir Next","Segoe UI",sans-serif;color-scheme:light}html[data-theme="dark"]{--bg:#1c1915;--surface:#2a261f;--ink:#f6f1e6;--muted:#d4cbba;--line:#f6f1e6;--shadow:#000000;--green:#c6ff3d;--yellow:#ffe14a;--coral:#ff7a5c;--sky:#7ad4ff;--violet:#d0b4ff;color-scheme:dark}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.45;font-variant-numeric:tabular-nums}img{max-width:100%;height:auto}h1,h2,h3{font-weight:700;letter-spacing:-0.04em;line-height:0.95}p{margin:0}a{color:inherit}.sprite{position:absolute;width:0;height:0;overflow:hidden}.icon{width:18px;height:18px;flex:0 0 18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.skip{position:absolute;left:12px;top:-48px;z-index:5;background:var(--green);color:var(--on);border:3px solid var(--line);padding:8px 12px;font-weight:700}.skip:focus{top:12px}.bar{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:64px;padding:12px 24px;border-bottom:3px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:3}.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;letter-spacing:-0.04em;text-decoration:none}.brand img{display:block;border:3px solid var(--line);background:#141414}.bar-tools{display:flex;align-items:center;gap:12px}.nav{display:flex;flex-wrap:wrap;gap:4px 12px;font-weight:700}.nav a{text-decoration:none;padding:4px 8px;transition:var(--move)}.nav a:hover{background:var(--green);color:var(--on)}.theme{min-height:40px;padding:8px 12px;border:3px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:4px 4px 0 var(--shadow);font:700 16px/1 var(--sans);cursor:pointer;transition:var(--move)}.theme:hover,.theme:focus-visible{transform:translate(4px,4px);box-shadow:0 0 0 var(--shadow);background:var(--violet);color:var(--on)}html[data-theme="dark"] .when-light,html:not([data-theme="dark"]) .when-dark{display:none}main{max-width:1184px;margin:0 auto;padding:32px 24px 64px}.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;align-items:center;min-height:calc(100svh - 96px);margin-bottom:64px}h1{margin:0 0 16px;font-size:clamp(40px,5vw,64px)}.lede{font-size:20px;max-width:36rem;margin-bottom:24px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 16px;border:3px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:6px 6px 0 var(--shadow);text-decoration:none;font:700 16px/1 var(--sans);border-radius:8px;cursor:pointer;transition:var(--move)}.btn-primary{background:var(--green);color:var(--on)}.btn:hover,.btn:focus-visible,.card:hover,.pkg:hover{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--shadow)}.btn:hover,.btn:focus-visible{background:var(--yellow);color:var(--on)}.btn-primary:hover,.btn-primary:focus-visible{background:var(--sky);color:var(--on)}.btn:active,.card:active,.pkg:active,.theme:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--shadow)}.btn:focus-visible,.theme:focus-visible,.nav a:focus-visible,summary:focus-visible,.tab-label:focus-within{outline:3px solid var(--green);outline-offset:3px}.pkgs{display:flex;flex-wrap:wrap;gap:8px}.pkg{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px;border:3px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:4px 4px 0 var(--shadow);text-decoration:none;font-weight:700;border-radius:8px;transition:var(--move)}.pkg:hover{background:var(--green);color:var(--on)}.note{margin-top:12px;color:var(--muted);max-width:36rem}.desk{border:3px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:8px 8px 0 var(--shadow);overflow:hidden;color:#141414}.desk-top{display:flex;align-items:center;gap:8px;min-height:48px;padding:8px 12px;background:var(--yellow);border-bottom:3px solid #141414}.desk-top strong{font-size:16px}.stamp{margin-left:auto;border:3px solid #141414;background:var(--green);color:#141414;font-weight:700;font-size:14px;padding:4px 8px;transform:rotate(-2deg)}.desk-body{display:grid;grid-template-columns:148px 1fr;min-height:280px}.files{margin:0;padding:8px;list-style:none;background:var(--sky);border-right:3px solid #141414}.files li{min-height:36px;display:flex;align-items:center;padding:4px 8px;font-weight:700}.files .on{background:#fffdf8;color:#141414;border:3px solid #141414;border-radius:4px}.doc{margin:0;padding:16px;background:#fffdf8;font-size:16px}.doc p{margin:0 0 8px}.desk-status{min-height:36px;display:flex;align-items:center;padding:8px 12px;border-top:3px solid #141414;background:var(--violet);font-weight:700;font-size:14px}section{margin-bottom:64px}h2{margin:0 0 16px;font-size:clamp(32px,4vw,44px)}.lead{margin:-8px 0 20px;max-width:40rem;color:var(--muted)}.grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px}.card{margin:0;padding:20px;border:3px solid var(--line);border-radius:8px;box-shadow:6px 6px 0 var(--shadow);color:var(--on);transition:var(--move)}.card h3{margin:8px 0;font-size:22px;display:flex;align-items:center;gap:8px}.card p{font-size:16px}.card-edit{background:var(--yellow);grid-column:span 1}.card-sheet{background:var(--sky)}.card-limit{background:var(--coral);grid-column:span 2}.card-media{background:var(--violet)}.card .icon{color:var(--on)}.shots{display:grid;gap:24px}.shots figure{margin:0}.shots img,.shots picture{display:block}.shots img{width:100%;border:3px solid var(--line);border-radius:8px;box-shadow:6px 6px 0 var(--shadow);background:var(--surface)}.shots figcaption{margin-top:8px;font-weight:700}.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}.pair figcaption{grid-column:1 / -1}.panel{padding:24px;border:3px solid var(--line);border-radius:8px;background:var(--surface);box-shadow:6px 6px 0 var(--shadow)}.panel .stamp{float:right}.checks{margin:8px 0 0;padding-left:20px}.checks li{margin:0 0 8px}.tabs{display:grid;grid-template-columns:180px 1fr;gap:16px;align-items:start}.tab-input{position:absolute;opacity:0;width:1px;height:1px}.tab-list{display:grid;gap:8px}.tab-label{display:flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;border:3px solid var(--line);border-radius:8px;background:var(--surface);box-shadow:4px 4px 0 var(--shadow);font-weight:700;cursor:pointer;transition:var(--move)}.tab-label:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--shadow);background:var(--green);color:var(--on)}.tab-panel{display:none;padding:20px;border:3px solid var(--line);border-radius:8px;box-shadow:6px 6px 0 var(--shadow);color:var(--on)}.tab-panel p,.tab-panel li{margin:0 0 8px}.tab-panel ol,.tab-panel ul{margin:8px 0 0;padding-left:20px}#os-android:checked ~ .tab-list label[for="os-android"],#os-windows:checked ~ .tab-list label[for="os-windows"],#os-mac:checked ~ .tab-list label[for="os-mac"],#os-linux:checked ~ .tab-list label[for="os-linux"],#os-ios:checked ~ .tab-list label[for="os-ios"]{background:var(--yellow);color:var(--on);transform:translate(4px,4px);box-shadow:0 0 0 var(--shadow)}#os-android:checked ~ .panel-android,#os-windows:checked ~ .panel-windows,#os-mac:checked ~ .panel-mac,#os-linux:checked ~ .panel-linux,#os-ios:checked ~ .panel-ios{display:block}.panel-android{background:var(--green)}.panel-windows{background:var(--sky)}.panel-mac{background:var(--violet)}.panel-linux{background:var(--yellow)}.panel-ios{background:var(--coral)}.faq{display:grid;gap:12px}.faq details{border:3px solid var(--line);border-radius:8px;background:var(--surface);box-shadow:4px 4px 0 var(--shadow);padding:12px 16px}.faq summary{cursor:pointer;font-weight:700;font-size:18px}.faq p{margin-top:8px}.credits{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:0;padding:0;list-style:none}.credits li{min-height:72px;display:flex;align-items:center;padding:12px;border:3px solid var(--line);border-radius:8px;background:var(--surface);box-shadow:4px 4px 0 var(--shadow);font-weight:700}.credits li:nth-child(1){background:var(--green);color:var(--on)}.credits li:nth-child(2){background:var(--yellow);color:var(--on)}.credits li:nth-child(3){background:var(--sky);color:var(--on)}.credits li:nth-child(4){background:var(--violet);color:var(--on)}.credits li:nth-child(5){background:var(--coral);color:var(--on)}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 24px;border-top:3px solid var(--line);background:var(--ink);color:var(--bg);font-weight:700}html[data-theme="dark"] .foot{background:#000;color:var(--ink)}.foot a{color:var(--green)}.credit{font-weight:400;width:100%}@media (max-width:900px){.hero{grid-template-columns:1fr;min-height:0}.grid{grid-template-columns:1fr 1fr}.card-limit{grid-column:span 2}.tabs{grid-template-columns:1fr}.credits{grid-template-columns:1fr 1fr}.bar{align-items:flex-start;flex-direction:column}}@media (max-width:640px){main{padding:20px 12px 48px}.grid,.pair,.credits{grid-template-columns:1fr}.card-limit{grid-column:auto}.actions,.pkgs{flex-direction:column}.btn,.pkg{width:100%}.desk-body{grid-template-columns:1fr}.files{border-right:0;border-bottom:3px solid #141414}.foot{flex-direction:column}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.pkg,.card,.theme,.nav a,.tab-label{transition:none}.btn:hover,.pkg:hover,.card:hover,.theme:hover,.tab-label:hover,.btn:active,.pkg:active,.card:active,.theme:active{transform:none}}</style>
+  </head>
+  <body>
+    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+      <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/><rect width="18" height="18" x="3" y="3" rx="2"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+    </svg>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="bar">
+      <a class="brand" href="#top">
+        <img src="media/logo.svg" width="40" height="40" alt="" />
+        NeoFile
+      </a>
+      <div class="bar-tools">
+        <nav class="nav" aria-label="Page">
+          <a href="#download">Download</a>
+          <a href="#features">Features</a>
+          <a href="#shots">Screenshots</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#install">Install</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <button class="theme" type="button" id="theme" aria-pressed="false">
+          <span class="when-light">Dark</span>
+          <span class="when-dark">Light</span>
+        </button>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero" id="top">
+        <div>
+          <h1 id="download">Open text, sheets, and documents on this device</h1>
+          <p class="lede">NeoFile is the offline desk for a computer or a phone. Edit text and CSV. Change spreadsheet values. Preview PDF, Word, and PowerPoint without uploading them.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Download</a>
+            <a class="btn" href="#install">How to install</a>
+          </div>
+          <div class="pkgs" aria-label="Packages on the latest release">
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Android</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Windows</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">macOS</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">iOS</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Linux</a>
+          </div>
+          <p class="note">Each package link opens the latest GitHub Release. Windows, macOS, and iOS builds are not signed by Apple or Microsoft.</p>
+        </div>
+        <aside class="desk" aria-label="A sample NeoFile window, drawn in the page">
+          <div class="desk-top">
+            <img src="media/logo.svg" width="28" height="28" alt="" />
+            <strong>Welcome.md</strong>
+            <span class="stamp">Local</span>
+          </div>
+          <div class="desk-body">
+            <ul class="files">
+              <li class="on">Welcome.md</li>
+              <li>budget.csv</li>
+              <li>notes.json</li>
+            </ul>
+            <div class="doc">
+              <p><strong>NeoFile</strong></p>
+              <p>Local files only. There is no account and no upload.</p>
+              <p>Text and CSV can be edited. Word and PowerPoint open as previews.</p>
+            </div>
+          </div>
+          <div class="desk-status">Markdown · edit · saved on this device</div>
+        </aside>
+      </section>
+
+      <section id="features" aria-labelledby="features-title">
+        <h2 id="features-title">What the desk edits, and what it only shows</h2>
+        <div class="grid">
+          <article class="card card-edit">
+            <svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>
+            <h3>Text and code</h3>
+            <p>Markdown, HTML, CSS, Java, JavaScript, TypeScript, Python, JSON, XML, and plain text. Common languages get syntax color. Markdown has a basic preview.</p>
+          </article>
+          <article class="card card-edit">
+            <svg class="icon" aria-hidden="true"><use href="#i-table"/></svg>
+            <h3>CSV</h3>
+            <p>Cells, paste, and undo. Quoted commas and line breaks stay in the file when you save.</p>
+          </article>
+          <article class="card card-sheet">
+            <svg class="icon" aria-hidden="true"><use href="#i-table"/></svg>
+            <h3>Spreadsheet values</h3>
+            <p>xlsx, xlsm, and xls open for cell values. Formulas are not recalculated. Charts, macros, and most formatting drop on save.</p>
+          </article>
+          <article class="card card-sheet">
+            <svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>
+            <h3>PDF</h3>
+            <p>Pages, text selection, and search. No annotation editing. Save exports the original file.</p>
+          </article>
+          <article class="card card-limit">
+            <svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>
+            <h3>Word and PowerPoint are previews</h3>
+            <p>Word becomes HTML plus extracted text. PowerPoint shows slide text and embedded pictures, not the layout. Saving exports the original. Export HTML is not a Word file.</p>
+          </article>
+          <article class="card card-media">
+            <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+            <h3>Pictures, audio, and video</h3>
+            <p>Playback and save only. No crop, trim, or filters.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="shots" aria-labelledby="shots-title">
+        <h2 id="shots-title">Captured from the running app</h2>
+        <p class="lead">Light editor, dark spreadsheet, and the phone file list. These are screenshots, not drawings.</p>
+        <div class="shots">
+          <figure>
+            <picture>
+              <source type="image/avif" srcset="media/desktop-light.avif" />
+              <source type="image/webp" srcset="media/desktop-light.webp" />
+              <img src="media/desktop-light.png" width="1440" height="900" alt="NeoFile on a wide screen in light mode, with Welcome.md open in the editor" loading="lazy" decoding="async" />
+            </picture>
+            <figcaption>Desktop, light. Markdown open for editing</figcaption>
+          </figure>
+          <figure>
+            <picture>
+              <source type="image/avif" srcset="media/desktop-dark.avif" />
+              <source type="image/webp" srcset="media/desktop-dark.webp" />
+              <img src="media/desktop-dark.png" width="1440" height="900" alt="NeoFile in dark mode showing the budget.csv grid" loading="lazy" decoding="async" />
+            </picture>
+            <figcaption>Desktop, dark. CSV values</figcaption>
+          </figure>
+          <figure class="pair">
+            <picture>
+              <source type="image/avif" srcset="media/mobile-light.avif" />
+              <source type="image/webp" srcset="media/mobile-light.webp" />
+              <img src="media/mobile-light.png" width="780" height="1688" alt="NeoFile at phone width in light mode, with recent files and the bottom bar" loading="lazy" decoding="async" />
+            </picture>
+            <picture>
+              <source type="image/avif" srcset="media/mobile-dark.avif" />
+              <source type="image/webp" srcset="media/mobile-dark.webp" />
+              <img src="media/mobile-dark.png" width="780" height="1688" alt="NeoFile at phone width in dark mode, with the same file list" loading="lazy" decoding="async" />
+            </picture>
+            <figcaption>Phone width, light and dark</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="privacy" aria-labelledby="privacy-title">
+        <div class="panel">
+          <span class="stamp">Local</span>
+          <h2 id="privacy-title">Nothing is uploaded</h2>
+          <ul class="checks">
+            <li>No account, no sync, and no analytics.</li>
+            <li>Fonts are files in the app, not a font service.</li>
+            <li>The packaged page blocks ordinary web requests with a content security policy.</li>
+            <li>The Android release is built without the INTERNET permission.</li>
+            <li>Snapshots stay on the device. Erase them in Privacy. That does not delete the files in your folders.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="install" aria-labelledby="install-title">
+        <h2 id="install-title">How to install</h2>
+        <div class="tabs">
+          <input class="tab-input" type="radio" name="os" id="os-android" checked />
+          <input class="tab-input" type="radio" name="os" id="os-windows" />
+          <input class="tab-input" type="radio" name="os" id="os-mac" />
+          <input class="tab-input" type="radio" name="os" id="os-linux" />
+          <input class="tab-input" type="radio" name="os" id="os-ios" />
+          <div class="tab-list">
+            <label class="tab-label" for="os-android">Android</label>
+            <label class="tab-label" for="os-windows">Windows</label>
+            <label class="tab-label" for="os-mac">macOS</label>
+            <label class="tab-label" for="os-linux">Linux</label>
+            <label class="tab-label" for="os-ios">iOS</label>
+          </div>
+          <div class="tab-panel panel-android">
+            <p>Copy the APK to the phone and open it. Allow install from your files app if Android asks. This build does not request network access.</p>
+          </div>
+          <div class="tab-panel panel-windows">
+            <p>Run the setup exe or the MSI. SmartScreen can say “Windows protected your PC” because the installer is not Authenticode-signed. Choose More info, then Run anyway.</p>
+            <p>Closing the window hides NeoFile in the tray. Quit from the tray menu.</p>
+          </div>
+          <div class="tab-panel panel-mac">
+            <p>Open the disk image and drag NeoFile to Applications. Use the Apple silicon image on M-series Macs and the x64 image on Intel.</p>
+            <p>Gatekeeper blocks unsigned apps. Right-click NeoFile, choose Open, then Open again. If it still refuses, run <code>xattr -cr /Applications/NeoFile.app</code> and try the right-click again. The app is not notarized.</p>
+          </div>
+          <div class="tab-panel panel-linux">
+            <p>Install the deb with <code>sudo apt install ./NeoFile_1.0.0_amd64.deb</code>, or mark the AppImage executable and run it. The deb expects WebKitGTK 4.1. Video in the AppImage needs <code>gstreamer1.0-plugins-good</code>.</p>
+          </div>
+          <div class="tab-panel panel-ios">
+            <p>The IPA is unsigned. iOS will not install it from Files. AltStore or Sideloadly re-signs it with your Apple ID. A free account works for about 7 days, then you refresh the app.</p>
+            <ol>
+              <li>Sideloadly: connect the iPhone, drop in the IPA, and sign in. Then Settings, General, VPN and Device Management, and trust the certificate.</li>
+              <li>AltStore: install AltServer on a computer and AltStore on the phone. In My Apps, add the IPA, then trust the certificate the same way.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Does NeoFile edit Word and PowerPoint?</summary>
+            <p>No. Word opens as HTML and extracted text. PowerPoint shows slide text and embedded pictures, not positions or animation. Save exports the original file.</p>
+          </details>
+          <details>
+            <summary>What does saving a spreadsheet change?</summary>
+            <p>Cell values. SheetJS does not recalculate formulas. Charts, pivot tables, macros, images, comments, and most formatting are dropped.</p>
+          </details>
+          <details>
+            <summary>Can it open a cloud drive?</summary>
+            <p>Only files that are already on this device. NeoFile does not sign in anywhere.</p>
+          </details>
+          <details>
+            <summary>Why does the iPhone app stop opening?</summary>
+            <p>A free Apple ID sideload expires after about 7 days. Refresh it in Sideloadly or AltStore. A paid developer account lasts longer.</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="credits" aria-labelledby="credits-title">
+        <h2 id="credits-title">Contributors</h2>
+        <ul class="credits">
+          <li>Himanshu Pathak</li>
+          <li>pavitra-prabhakar</li>
+          <li>vectornomadhp88</li>
+          <li>Cursor</li>
+          <li>Built with Grok Bot</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="foot">
+      <p><a href="https://github.com/Himanshu-5680/NeoFile">NeoFile on GitHub</a></p>
+      <p>MIT License</p>
+      <p class="credit">Layout pass follows unslop by Damir Sokolovsky (<a href="https://heydamir.design/unslop">@heydamir</a>), CC BY 4.0. Borders and hard shadows stay neo-brutalist.</p>
+    </footer>
+    <script>document.getElementById("theme").addEventListener("click",function(){var n=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);this.setAttribute("aria-pressed",n==="dark"?"true":"false");try{localStorage.setItem("neofile-site-theme",n)}catch(e){}})</script>
+  </body>
+</html>

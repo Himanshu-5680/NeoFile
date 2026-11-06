@@ -18,10 +18,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("../../signing/neofile-release.keystore")
-            storePassword ""
-            keyAlias "neofile"
-            keyPassword ""
+            storeFile file(System.getenv("ANDROID_KEYSTORE_PATH") ?: "${rootProject.projectDir}/../signing/neofile-release.keystore")
+            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: ""
+            keyAlias System.getenv("ANDROID_KEY_ALIAS") ?: "neofile"
+            keyPassword System.getenv("ANDROID_KEY_PASSWORD") ?: ""
         }
     }
     buildTypes {

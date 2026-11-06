@@ -122,7 +122,7 @@ npm run dev
 
 Pushing a `v*` tag runs `.github/workflows/release.yml`, which builds all of the above and attaches them to a GitHub Release.
 
-Test keystore for the APK: `apps/web/signing/neofile-release.keystore`, alias `neofile`, password ``.
+The release workflow signs the APK from GitHub Actions secrets, not from a keystore in the repo. Set `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS`.
 
 ## Tech stack
 
