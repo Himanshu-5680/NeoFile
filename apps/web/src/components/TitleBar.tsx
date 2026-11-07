@@ -13,7 +13,7 @@ export function TitleBar() {
   return (
     <header className="titlebar">
       <div className="brand" data-tauri-drag-region>
-        <img className="mark" src="/logo.svg" alt="" width="40" height="40" />
+        <img className="mark" src={`${import.meta.env.BASE_URL}logo.svg`} alt="" width="40" height="40" />
         <div className="word" data-tauri-drag-region>
           NEOFILE
           <small>{store.shell === "android" ? "On this phone" : store.shell === "desktop" ? "On this computer" : "In this browser"}</small>
