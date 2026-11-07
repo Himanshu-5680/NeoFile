@@ -117,10 +117,22 @@ jobs:
           echo "udid=$UDID" | tee -a "$RUNNER_TEMP/sims.txt"
           if [ -z "$UDID" ]; then echo "no simulator" | tee "$RUNNER_TEMP/simctl.txt"; exit 1; fi
           xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b > "$RUNNER_TEMP/boot.txt" 2>&1
+          echo "boot=$?" | tee -a "$RUNNER_TEMP/boot.txt"
           xcrun simctl install "$UDID" NeoFile.ipa > "$RUNNER_TEMP/simctl.txt" 2>&1
-          echo "install=$?" | tee -a "$RUNNER_TEMP/simctl.txt"
-          # A device IPA is not a simulator build. A non-zero install is the expected coverage, not a successful device test.
-          exit 0
+          INSTALL=$?
+          echo "install=$INSTALL" | tee -a "$RUNNER_TEMP/simctl.txt"
+          if [ "$INSTALL" -ne 0 ]; then
+            echo "install failed; this IPA is an iphoneos build and is not a normal device install" | tee -a "$RUNNER_TEMP/simctl.txt"
+            exit "$INSTALL"
+          fi
+          xcrun simctl launch "$UDID" app.neofile.local > "$RUNNER_TEMP/launch.txt" 2>&1
+          LAUNCH=$?
+          echo "launch=$LAUNCH" | tee -a "$RUNNER_TEMP/launch.txt"
+          sleep 4
+          xcrun simctl spawn "$UDID" log show --last 1m --style compact --predicate 'subsystem CONTAINS "neofile" OR processImagePath CONTAINS "App"' > "$RUNNER_TEMP/syslog.txt" 2>&1 || true
+          # Simulator install is not a phone install and not App Store distribution.
+          exit "$LAUNCH"
       - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v7
@@ -128,4 +140,7 @@ jobs:
           name: ios-simulator-logs
           path: |
             ${{ runner.temp }}/sims.txt
+            ${{ runner.temp }}/boot.txt
             ${{ runner.temp }}/simctl.txt
+            ${{ runner.temp }}/launch.txt
+            ${{ runner.temp }}/syslog.txt
