@@ -33,12 +33,12 @@ node scripts/check-no-secrets.mjs
 
 ## Android signing when you build locally
 
-`scripts/build-android.sh` signs a release APK.
+`scripts/build-android.sh` builds an APK.
 
-- If `ANDROID_KEYSTORE_PASSWORD` is set, the script expects a keystore at `ANDROID_KEYSTORE_PATH` (default `apps/web/signing/neofile-release.keystore`).
-- If the password is not set, the script generates a throwaway PKCS12 key in a temporary directory, signs with it, and leaves the key there. The key is gitignored. The APK installs. It is not a key you can use for Play Store updates.
+- `NEOFILE_ANDROID_SIGNING=required` is the public release path. It expects `ANDROID_KEYSTORE_PASSWORD` and a keystore at `ANDROID_KEYSTORE_PATH` (default `apps/web/signing/neofile-release.keystore`). If either is missing, the script exits and does not generate a key.
+- A local run without the password writes `artifacts/NeoFile-debug.apk` with a temporary key, then deletes that key. Do not publish that file.
 
-GitHub Actions uses the same script. Repository secrets override the throwaway path. See [Install on Android](Installation-Android).
+The release workflow sets `NEOFILE_ANDROID_SIGNING=required` and stops when the four Android signing secrets are absent. See [Install on Android](Installation-Android).
 
 ## Release workflow
 

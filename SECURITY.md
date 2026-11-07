@@ -35,7 +35,7 @@ include enough detail to reproduce the impact.
 
 - SmartScreen or Gatekeeper warnings on the unsigned Windows and macOS installers. Those warnings are documented in the README.
 - The iOS IPA being unsigned. It is not a normal install, and the web desk is the separate browser copy.
-- An APK signed by the throwaway CI key when repository signing secrets are not configured. The release notes call that out. It is not a Play Store identity.
+- The already published v1.0.0 and v1.0.1 APKs, which used discarded throwaway keys. A future release refuses to publish another one.
 - Missing spreadsheet formula recalculation, Word editing, or PowerPoint layout. Those are product limits, not vulnerabilities.
 - A request to add accounts, sync, or analytics.
 
@@ -44,8 +44,7 @@ include enough detail to reproduce the impact.
 Release signing material is not stored in git. `ANDROID_KEYSTORE_BASE64`,
 `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS`
 are GitHub Actions secrets when a maintainer configures them. If they are
-absent, the Android job generates a throwaway key on the runner, signs the APK
-so it can be installed, and discards the key. Do not commit a `.keystore`,
+absent, the release job fails and does not generate a key. Do not commit a `.keystore`,
 `.jks`, `.p12`, or private key to replace that behavior.
 
 ## Spreadsheet parser

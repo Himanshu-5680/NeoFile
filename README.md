@@ -59,7 +59,7 @@ The hosted page is the same editor UI, running in the browser. Add to Home Scree
 
 ### Android
 
-The APK requests no `INTERNET` permission. v1.0.1 is signed with a throwaway key created during the GitHub build because the release keystore secrets were not set. That key is not in git, it is not a Play signing key, and it is not the v1.0.0 key. Installing 1.0.1 over 1.0.0 fails until the older app is removed.
+The APK requests no `INTERNET` permission. The published v1.0.0 and v1.0.1 APKs were signed with two different throwaway keys, and both keys were discarded on the build runner. Android will refuse to install one over the other. A new key cannot make that update seamless. Recents and snapshots live in the app's private IndexedDB database `neofile`. Saving a document writes that file to a folder you pick; those files stay. The web desk is a separate browser copy and does not contain the Android app's snapshots. Keep the installed app if you still need those snapshots.
 
 ### Windows
 
@@ -123,7 +123,7 @@ npm run dev
 
 Pushing a `v*` tag runs `.github/workflows/release.yml`, which builds all of the above and attaches them to a GitHub Release.
 
-The release workflow signs the APK from GitHub Actions secrets when they are set: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS`. None of those values are stored in git. If the keystore secret is missing, `scripts/build-android.sh` generates a throwaway key on the runner, signs the APK so it can be installed, and discards the key. The GitHub Release notes say when that happened. A throwaway key is not a Play Store identity, and a later APK signed with a different key will not update over it until the old app is uninstalled.
+A public release signs the APK only when these GitHub Actions secrets are set: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS`. None of those values are stored in git. If they are missing, the release job stops and does not generate a key or upload an APK. A local `bash scripts/build-android.sh` without the password still writes `NeoFile-debug.apk` with a temporary key and deletes that key. That debug file is not a release. A keystore created later can sign future releases only. It cannot update the published v1.0.0 or v1.0.1 installs, because those keys are gone.
 
 ## Tech stack
 

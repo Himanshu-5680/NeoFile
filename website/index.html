@@ -201,7 +201,7 @@
           </div>
           <div class="tab-panel panel-android">
             <p>The recommended file is <code>NeoFile-1.0.1.apk</code>. Copy it to the phone and open it. Android can ask you to allow that files or browser app to install unknown apps. That prompt is one system step. This is not a store install, and it is not zero steps.</p>
-            <p>The published 1.0.1 APK is signed with a throwaway key from the GitHub build, not a Play signing key. It does not install over the 1.0.0 app. A later file signed with a different key will not update over it until the old app is removed. The APK does not request network access.</p>
+            <p>The published 1.0.0 and 1.0.1 APKs were signed with two different throwaway keys, and those keys were discarded. Android will not install one over the other. A new key does not fix that. Recents and snapshots stay in the installed app's private storage. The web desk is a separate browser copy and does not hold those snapshots, so keep the installed app if you still need them. The APK does not request network access.</p>
           </div>
           <div class="tab-panel panel-windows">
             <p>The recommended file is <code>NeoFile_1.0.1_x64.msi</code> for 64-bit Windows. The setup exe is the same unsigned app. Windows SmartScreen can say “Windows protected your PC” because the installer is not Authenticode-signed. NeoFile cannot remove that warning and does not ask you to turn SmartScreen off.</p>

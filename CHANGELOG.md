@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- A public Android release stops when the signing secrets are missing. It does not generate a key or upload an APK. Local builds without a password write `NeoFile-debug.apk` only.
+- The install notes say v1.0.0 and v1.0.1 cannot update over each other, that those keys are gone, and that recents and snapshots stay in the installed app. They no longer tell anyone to remove the app to upgrade.
 - The project site and the install docs name the v1.0.1 files, one recommended download per system, and the real signing limits. They no longer tell anyone to strip the macOS quarantine flag or to turn SmartScreen off.
 - The project site can publish the existing browser UI as NeoFile web desk. That copy is labeled as a web app. It is not a native iOS install. The first open needs a network connection.
 

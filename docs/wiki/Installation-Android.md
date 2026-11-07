@@ -13,15 +13,15 @@ The APK does not request the `INTERNET` permission. The manifest removes it.
 
 ## Signing
 
-When the repository secrets `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS` are set, the release workflow signs the APK with that keystore.
+A public release signs the APK only when the repository secrets `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, and `ANDROID_KEY_ALIAS` are set. If they are missing, the release job stops. It does not generate a key and it does not upload an APK.
 
-When they are not set, the workflow generates a throwaway key on the GitHub-hosted runner, signs the APK so it can be installed, and discards the key. The release notes say which of the two happened. A throwaway key is not a Play Store signing key. An update signed with a different key will not install over the app until you uninstall the previous copy.
+The published v1.0.0 and v1.0.1 files were signed with two different throwaway keys. Those keys were not stored. A keystore created now can sign a future release only. It cannot update either published install.
 
-Do not use the throwaway key for a store listing. There is no keystore in the git repository.
+There is no keystore in the git repository. A local debug build without the password writes `NeoFile-debug.apk` and deletes its temporary key. That file is not a release.
 
-## Updates and removal
+## Already installed copies
 
-Uninstall from the Android app info screen. That removes the app. Snapshots stored inside the app go with it. Files you saved to Downloads or another folder you picked stay where you saved them.
+Android will not install v1.0.1 over v1.0.0, or a later differently signed APK over either of them. Recents and snapshots live in the app's private IndexedDB database `neofile`. Saving or exporting a document writes that document to a folder you pick, and those files stay. The [web desk](Installation-Web) is a separate browser copy and does not contain the Android app's snapshots. Keep the installed app if you still need those snapshots. Removing the app also removes that private database. These notes do not ask you to remove the app.
 
 ## What the app can open
 

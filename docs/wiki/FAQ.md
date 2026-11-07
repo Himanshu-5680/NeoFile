@@ -30,7 +30,7 @@ The native package is an unsigned IPA. iOS will not install it from Files, and t
 
 ## Why will an Android update not install over the app I have?
 
-If the release notes say the APK was signed with a throwaway CI key, the next build may use a different key. Android refuses that update. Uninstall the old app first. A configured release keystore avoids that, once a maintainer stores it in the GitHub Actions secrets.
+The published v1.0.0 and v1.0.1 APKs were signed with two different throwaway keys. Both keys were discarded on the build runner. Android refuses the update, and no new key can make it seamless. Recents and snapshots are in that install's private IndexedDB database `neofile`. They are not a file you can copy to another signature. Use Save or Export on a document you still need; that writes the document to a folder you pick. The [web desk](Installation-Web) is a separate browser copy and does not contain those snapshots. Keep the installed app if you still need them.
 
 ## Where do snapshots go?
 
