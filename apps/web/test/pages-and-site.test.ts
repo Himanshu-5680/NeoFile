@@ -47,6 +47,9 @@ describe("website theme control", () => {
     expect(html).not.toContain("v1.0.0");
     expect(html).not.toContain("xattr");
     expect(html).not.toContain("Run anyway");
+    expect(html).not.toMatch(/uninstall/i);
+    expect(html).toContain("those keys were discarded");
+    expect(html).toContain("keep the installed app");
   });
 });
 

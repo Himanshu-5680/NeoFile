@@ -68,24 +68,28 @@ jobs:
       - run: npm ci
       - name: Version
         run: echo "NEOFILE_VERSION=${RELEASE_TAG#v}" >> "$GITHUB_ENV"
-      - name: Decode release keystore when the secret is set
+      - name: Require the release keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
-          if [ -n "$ANDROID_KEYSTORE_BASE64" ]; then
-            mkdir -p apps/web/signing
-            printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > apps/web/signing/neofile-release.keystore
-            echo "Using the configured release keystore."
-          else
-            echo "ANDROID_KEYSTORE_BASE64 is empty. The APK will be signed with a throwaway key."
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "::error title=Android release signing is not configured::Set repository secrets ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_PASSWORD, and ANDROID_KEY_ALIAS. This job will not generate a key and will not upload an APK."
+            exit 1
           fi
+          mkdir -p apps/web/signing
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > apps/web/signing/neofile-release.keystore
+          echo "Using the configured release keystore."
       - name: Build APK
         env:
+          NEOFILE_ANDROID_SIGNING: required
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          if [ -z "${ANDROID_KEYSTORE_PASSWORD}" ]; then unset ANDROID_KEYSTORE_PASSWORD; fi
+          if [ -z "${ANDROID_KEYSTORE_PASSWORD}" ]; then
+            echo "::error::ANDROID_KEYSTORE_PASSWORD is empty. Refusing to sign a public APK."
+            exit 1
+          fi
           if [ -z "${ANDROID_KEY_PASSWORD}" ]; then unset ANDROID_KEY_PASSWORD; fi
           if [ -z "${ANDROID_KEY_ALIAS}" ]; then unset ANDROID_KEY_ALIAS; fi
           bash scripts/build-android.sh
@@ -94,8 +98,8 @@ jobs:
         id: mode
         run: |
           mode="$(tr -d '[:space:]' < artifacts/android-signing-mode.txt)"
-          if [ "$mode" != "throwaway" ] && [ "$mode" != "configured" ]; then
-            echo "Unexpected signing mode: $mode" >&2
+          if [ "$mode" != "configured" ]; then
+            echo "::error::Refusing to upload an APK signed as ${mode}."
             exit 1
           fi
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
@@ -302,11 +306,11 @@ jobs:
           if [ "$missing" -ne 0 ]; then
             exit 1
           fi
-          if [ "$SIGNING_MODE" = "configured" ]; then
-            signing_note="This APK was signed with the release keystore configured in the repository secrets."
-          else
-            signing_note="This APK was signed with a throwaway key generated during the GitHub Actions build because ANDROID_KEYSTORE_BASE64 (and the matching password secrets) were not set. The key is not stored in the repository and is not a Play Store signing key. The APK installs. An update built with a different key will not install over this one until the app is uninstalled."
+          if [ "$SIGNING_MODE" != "configured" ]; then
+            echo "Refusing to publish an APK whose signing mode is not configured." >&2
+            exit 1
           fi
+          signing_note="This APK was signed with the release keystore configured in the repository secrets. The published 1.0.0 and 1.0.1 APKs used different discarded throwaway keys, so this file does not update those installs. Recents and snapshots in an already installed app stay in that app's private storage."
           cat > publish/RELEASE_NOTES.md <<EOF
           ## NeoFile ${RELEASE_TAG}
 
