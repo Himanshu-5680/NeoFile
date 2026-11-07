@@ -474,11 +474,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (handle && doc.mode !== "view" && !doc.locked) {
         await writeHandle(handle, bytes);
         setDocs((list) => patchDoc(list, doc.id, { dirty: false, saveState: "disk", saveDetail: "Saved to the file", size: bytes.byteLength }));
+        await persistSession();
         return;
       }
       if (doc.path && isTauri() && doc.mode !== "view" && !doc.locked) {
         await writeFilePath(doc.path, bytes);
         setDocs((list) => patchDoc(list, doc.id, { dirty: false, saveState: "disk", saveDetail: "Saved to the file", size: bytes.byteLength }));
+        await persistSession();
         return;
       }
       const where = await saveBytes(doc.name, doc.mode === "view" || doc.locked ? registry.getBytes(doc.id) : bytes, null);
@@ -492,6 +494,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
               : "Downloaded a copy";
       setDocs((list) => patchDoc(list, doc.id, { dirty: false, saveState: where === "download" ? "local" : "disk", saveDetail: detail, size: bytes.byteLength }));
       toast(detail);
+      await persistSession();
     } catch (error) {
       toast(error instanceof Error ? error.message : "Could not save");
     }
