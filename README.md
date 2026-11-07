@@ -163,13 +163,13 @@ The project site is [himanshu-5680.github.io/NeoFile](https://himanshu-5680.gith
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Changes that need a network service do not fit this app. Community expectations are in the [code of conduct](CODE_OF_CONDUCT.md). Vulnerability reports go through [SECURITY.md](SECURITY.md). Install questions start at [SUPPORT.md](SUPPORT.md).
 
-## Contributors
+## Credit
 
-- [Himanshu Pathak](https://github.com/Himanshu-5680)
-- [pavitra-prabhakar](https://github.com/pavitra-prabhakar)
-- [vectornomadhp88](https://github.com/vectornomadhp88)
-- [Cursor](https://cursor.com)
-- Built with Grok Bot
+[Himanshu Pathak](https://github.com/Himanshu-5680) (`Himanshu-5680`) is the project owner.
+
+[pavitra-prabhakar](https://github.com/pavitra-prabhakar) and [vectornomadhp88](https://github.com/vectornomadhp88) are other GitHub accounts of the same person. They are not separate maintainers, and they did not open the pull requests in this repository.
+
+The app implementation was AI-assisted in [Cursor](https://cursor.com), including work built with Grok Bot. Those commits stay attributed to the agent that wrote them. That assistance is not project ownership.
 
 ## License
 
