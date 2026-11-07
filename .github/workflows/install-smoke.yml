@@ -1,0 +1,131 @@
+name: Install smoke
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/install-smoke.yml
+
+permissions:
+  contents: read
+
+jobs:
+  windows-msi:
+    name: Windows MSI install and launch
+    runs-on: windows-latest
+    steps:
+      - name: Download the published v1.0.1 MSI
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi" -OutFile "$env:RUNNER_TEMP\NeoFile.msi"
+          Get-FileHash "$env:RUNNER_TEMP\NeoFile.msi" -Algorithm SHA256 | Format-List
+      - name: Install
+        shell: pwsh
+        run: |
+          $p = Start-Process msiexec -ArgumentList "/i `"$env:RUNNER_TEMP\NeoFile.msi`" /qn /norestart /l*v `"$env:RUNNER_TEMP\install.log`"" -Wait -PassThru
+          "msiexec exit $($p.ExitCode)" | Tee-Object "$env:RUNNER_TEMP\install-exit.txt"
+          if ($p.ExitCode -ne 0) { exit $p.ExitCode }
+          Get-ChildItem "C:\Program Files" -Recurse -Filter "neofile.exe" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
+      - name: Launch
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem "C:\Program Files" -Recurse -Filter "neofile.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) { throw "Installed neofile.exe was not found." }
+          $proc = Start-Process $exe.FullName -PassThru
+          Start-Sleep -Seconds 8
+          if ($proc.HasExited) {
+            "exited $($proc.ExitCode)" | Tee-Object "$env:RUNNER_TEMP\launch.txt"
+            exit 1
+          }
+          "running pid $($proc.Id)" | Tee-Object "$env:RUNNER_TEMP\launch.txt"
+          Stop-Process -Id $proc.Id -Force
+      - name: Uninstall
+        shell: pwsh
+        run: |
+          $p = Start-Process msiexec -ArgumentList "/x `"$env:RUNNER_TEMP\NeoFile.msi`" /qn /norestart /l*v `"$env:RUNNER_TEMP\uninstall.log`"" -Wait -PassThru
+          "msiexec exit $($p.ExitCode)" | Tee-Object "$env:RUNNER_TEMP\uninstall-exit.txt"
+          if ($p.ExitCode -ne 0) { exit $p.ExitCode }
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: windows-msi-logs
+          path: |
+            ${{ runner.temp }}/install.log
+            ${{ runner.temp }}/uninstall.log
+            ${{ runner.temp }}/install-exit.txt
+            ${{ runner.temp }}/launch.txt
+            ${{ runner.temp }}/uninstall-exit.txt
+
+  macos-dmg:
+    name: macOS DMG mount and launch
+    runs-on: macos-latest
+    steps:
+      - name: Download the published Apple silicon disk image
+        run: |
+          curl -fL -o NeoFile.dmg "https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg"
+          shasum -a 256 NeoFile.dmg
+      - name: Mount and record Gatekeeper
+        run: |
+          set +e
+          hdiutil attach NeoFile.dmg -nobrowse -mountpoint "$RUNNER_TEMP/neofile-dmg"
+          echo "attach=$?" | tee "$RUNNER_TEMP/mount.txt"
+          find "$RUNNER_TEMP/neofile-dmg" -maxdepth 2 -print | tee -a "$RUNNER_TEMP/mount.txt"
+          APP=$(find "$RUNNER_TEMP/neofile-dmg" -maxdepth 2 -name '*.app' | head -1)
+          echo "app=$APP" | tee -a "$RUNNER_TEMP/mount.txt"
+          if [ -z "$APP" ]; then exit 1; fi
+          spctl --assess --verbose=4 --type execute "$APP" > "$RUNNER_TEMP/spctl.txt" 2>&1
+          echo "spctl=$?" | tee -a "$RUNNER_TEMP/spctl.txt"
+          BIN=$(find "$APP/Contents/MacOS" -type f -perm +111 | head -1)
+          echo "bin=$BIN" | tee -a "$RUNNER_TEMP/launch.txt"
+          "$BIN" > "$RUNNER_TEMP/launch-out.txt" 2>&1 &
+          PID=$!
+          sleep 6
+          if kill -0 "$PID" 2>/dev/null; then
+            echo "running pid $PID" | tee -a "$RUNNER_TEMP/launch.txt"
+            kill "$PID" || true
+            LAUNCH=0
+          else
+            echo "exited" | tee -a "$RUNNER_TEMP/launch.txt"
+            wait "$PID"
+            echo "exit=$?" | tee -a "$RUNNER_TEMP/launch.txt"
+            LAUNCH=1
+          fi
+          hdiutil detach "$RUNNER_TEMP/neofile-dmg" || hdiutil detach "$RUNNER_TEMP/neofile-dmg" -force || true
+          exit "$LAUNCH"
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: macos-dmg-logs
+          path: |
+            ${{ runner.temp }}/mount.txt
+            ${{ runner.temp }}/spctl.txt
+            ${{ runner.temp }}/launch.txt
+            ${{ runner.temp }}/launch-out.txt
+
+  ios-simulator:
+    name: iOS simulator install attempt
+    runs-on: macos-latest
+    steps:
+      - name: Download the published unsigned IPA
+        run: curl -fL -o NeoFile.ipa "https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1-unsigned.ipa"
+      - name: Try to install on a simulator
+        run: |
+          set +e
+          xcrun simctl list devices available | head -40 | tee "$RUNNER_TEMP/sims.txt"
+          UDID=$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ && /Shutdown|Booted/ {print $2; exit}')
+          echo "udid=$UDID" | tee -a "$RUNNER_TEMP/sims.txt"
+          if [ -z "$UDID" ]; then echo "no simulator" | tee "$RUNNER_TEMP/simctl.txt"; exit 1; fi
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl install "$UDID" NeoFile.ipa > "$RUNNER_TEMP/simctl.txt" 2>&1
+          echo "install=$?" | tee -a "$RUNNER_TEMP/simctl.txt"
+          # A device IPA is not a simulator build. A non-zero install is the expected coverage, not a successful device test.
+          exit 0
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ios-simulator-logs
+          path: |
+            ${{ runner.temp }}/sims.txt
+            ${{ runner.temp }}/simctl.txt
