@@ -25,7 +25,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Require GitHub Pages to already be enabled
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,11 +42,11 @@ jobs:
           echo "::error title=GitHub Pages is not enabled::A repository admin must open Settings, then Pages, then Build and deployment, then Source, and choose GitHub Actions. The workflow GITHUB_TOKEN cannot create the site. actions/configure-pages enablement:true fails with Resource not accessible by integration because that call needs a separate token with administration:write. HTTP ${code}."
           exit 1
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload the website directory
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: website
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
