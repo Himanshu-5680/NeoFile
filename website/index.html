@@ -63,17 +63,18 @@
           <h1 id="download">Open text, sheets, and documents on this device</h1>
           <p class="lede">NeoFile is the offline desk for a computer or a phone. Edit text and CSV. Change spreadsheet values. Preview PDF, Word, and PowerPoint without uploading them.</p>
           <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Download</a>
-            <a class="btn" href="#install">How to install</a>
+            <a class="btn btn-primary" href="desk/">Open the web desk</a>
+            <a class="btn" href="#install">Native packages</a>
           </div>
-          <div class="pkgs" aria-label="Packages on the latest release">
-            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Android</a>
-            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Windows</a>
-            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">macOS</a>
-            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">iOS</a>
-            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/latest">Linux</a>
+          <p class="note">NeoFile web desk is the browser app, including Add to Home Screen. It is not the native iOS app. The first open needs a network connection. After the page is saved on the device, it can open offline until the browser removes that saved copy.</p>
+          <div class="pkgs" aria-label="Recommended v1.0.1 download for each system">
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk">Android APK</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi">Windows MSI</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg">macOS Apple silicon</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg">macOS Intel</a>
+            <a class="pkg" href="https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb">Linux deb</a>
           </div>
-          <p class="note">Each package link opens the latest GitHub Release. Windows, macOS, and iOS builds are not signed by Apple or Microsoft.</p>
+          <p class="note">Recommended files for NeoFile 1.0.1. Windows and macOS packages are not signed by Microsoft or Apple, so those systems can show their own warning. The Android APK can ask for permission to install from that source. The unsigned iPhone package is not a normal install.</p>
         </div>
         <aside class="desk" aria-label="A sample NeoFile window, drawn in the page">
           <div class="desk-top">
@@ -199,26 +200,24 @@
             <label class="tab-label" for="os-ios">iOS</label>
           </div>
           <div class="tab-panel panel-android">
-            <p>Copy the APK to the phone and open it. Allow install from your files app if Android asks. This build does not request network access.</p>
-            <p>If the release notes say the APK was signed with a throwaway CI key, it still installs. A later build signed with a different key will not update over it until you uninstall the old app.</p>
+            <p>The recommended file is <code>NeoFile-1.0.1.apk</code>. Copy it to the phone and open it. Android can ask you to allow that files or browser app to install unknown apps. That prompt is one system step. This is not a store install, and it is not zero steps.</p>
+            <p>The published 1.0.1 APK is signed with a throwaway key from the GitHub build, not a Play signing key. It does not install over the 1.0.0 app. A later file signed with a different key will not update over it until the old app is removed. The APK does not request network access.</p>
           </div>
           <div class="tab-panel panel-windows">
-            <p>Run the setup exe or the MSI. SmartScreen can say “Windows protected your PC” because the installer is not Authenticode-signed. Choose More info, then Run anyway.</p>
+            <p>The recommended file is <code>NeoFile_1.0.1_x64.msi</code> for 64-bit Windows. The setup exe is the same unsigned app. Windows SmartScreen can say “Windows protected your PC” because the installer is not Authenticode-signed. NeoFile cannot remove that warning and does not ask you to turn SmartScreen off.</p>
             <p>Closing the window hides NeoFile in the tray. Quit from the tray menu.</p>
           </div>
           <div class="tab-panel panel-mac">
-            <p>Open the disk image and drag NeoFile to Applications. Use the Apple silicon image on M-series Macs and the x64 image on Intel.</p>
-            <p>Gatekeeper blocks unsigned apps. Right-click NeoFile, choose Open, then Open again. If it still refuses, run <code>xattr -cr /Applications/NeoFile.app</code> and try the right-click again. The app is not notarized.</p>
+            <p>Use <code>NeoFile_1.0.1_aarch64.dmg</code> on Apple silicon and <code>NeoFile_1.0.1_x64.dmg</code> on Intel. Open the disk image and drag NeoFile to Applications.</p>
+            <p>The app is not notarized and is not signed with an Apple Developer ID. Gatekeeper can block it. These instructions do not include a command to remove that block. The web desk is the copy that does not go through Gatekeeper.</p>
           </div>
           <div class="tab-panel panel-linux">
-            <p>Install the deb with <code>sudo apt install ./NeoFile_1.0.0_amd64.deb</code>, or mark the AppImage executable and run it. The deb expects WebKitGTK 4.1. Video in the AppImage needs <code>gstreamer1.0-plugins-good</code>.</p>
+            <p>The recommended file is <code>NeoFile_1.0.1_amd64.deb</code> for 64-bit Debian and Ubuntu. Install it with <code>sudo apt install ./NeoFile_1.0.1_amd64.deb</code>. The package depends on <code>libwebkit2gtk-4.1-0</code>, <code>libgtk-3-0</code>, and <code>libayatana-appindicator3-1</code>. Ubuntu 24.04 provides those. No compiler or SDK is required.</p>
+            <p>The AppImage is the other file. Mark it executable with <code>chmod +x</code> and run it. Video playback needs <code>gstreamer1.0-plugins-good</code>.</p>
           </div>
           <div class="tab-panel panel-ios">
-            <p>The IPA is unsigned. iOS will not install it from Files. AltStore or Sideloadly re-signs it with your Apple ID. A free account works for about 7 days, then you refresh the app.</p>
-            <ol>
-              <li>Sideloadly: connect the iPhone, drop in the IPA, and sign in. Then Settings, General, VPN and Device Management, and trust the certificate.</li>
-              <li>AltStore: install AltServer on a computer and AltStore on the phone. In My Apps, add the IPA, then trust the certificate the same way.</li>
-            </ol>
+            <p>The free install is the web desk. In Safari, open this site, choose Share, then Add to Home Screen. The icon is labeled as the web app. It is not an App Store app and it is not a native iOS install.</p>
+            <p>The file <code>NeoFile-1.0.1-unsigned.ipa</code> is not a one-tap install. iOS will not install it from Files. This project does not have a free path that installs that native package on every iPhone.</p>
           </div>
         </div>
       </section>
@@ -239,8 +238,8 @@
             <p>Only files that are already on this device. NeoFile does not sign in anywhere.</p>
           </details>
           <details>
-            <summary>Why does the iPhone app stop opening?</summary>
-            <p>A free Apple ID sideload expires after about 7 days. Refresh it in Sideloadly or AltStore. A paid developer account lasts longer.</p>
+            <summary>Can I put NeoFile on an iPhone without a store?</summary>
+            <p>Yes, as the web desk. Add this site to the Home Screen from Safari. The first open needs a network connection. Later opens can work offline until iOS removes the saved copy. The unsigned IPA is not that install.</p>
           </details>
         </div>
       </section>

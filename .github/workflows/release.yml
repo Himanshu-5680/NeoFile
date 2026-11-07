@@ -328,9 +328,9 @@ jobs:
           ### Install
 
           - **Android:** ${signing_note}
-          - **Windows:** SmartScreen may say "Windows protected your PC" because the installer is not Authenticode-signed. Choose **More info**, then **Run anyway**. Closing the window hides NeoFile in the tray. Quit from the tray menu.
-          - **macOS:** Gatekeeper blocks unsigned apps. The app is not notarized. Right-click NeoFile, choose **Open**, then **Open** again. If it still refuses, run xattr -cr /Applications/NeoFile.app and try the right-click again. Use the arm64 disk image on Apple silicon and the x64 image on Intel.
-          - **iOS:** The IPA is unsigned. iOS will not install it from Files. Sideload it with AltStore or Sideloadly and an Apple ID. A free account signature lasts about 7 days, then refresh the app.
+          - **Windows:** SmartScreen may say "Windows protected your PC" because the installer is not Authenticode-signed. NeoFile cannot remove that warning. Closing the window hides NeoFile in the tray. Quit from the tray menu.
+          - **macOS:** Gatekeeper can block the app because it is not notarized. These notes do not include a command to remove that block. Use the arm64 disk image on Apple silicon and the x64 image on Intel.
+          - **iOS:** The IPA is unsigned and is not a normal install. iOS will not install it from Files. The web desk on the project site is the separate browser copy.
           - **Linux:** sudo apt install ./NeoFile_${ver}_amd64.deb, or chmod +x the AppImage and run it. The deb needs WebKitGTK 4.1.
 
           ### Android signing

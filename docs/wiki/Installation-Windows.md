@@ -1,21 +1,12 @@
 # Install on Windows
 
-The release has two installers:
+The recommended file is `NeoFile_<version>_x64.msi`, for example `NeoFile_1.0.1_x64.msi`. It is a 64-bit MSI. The release also has `NeoFile_<version>_x64-setup.exe`, which is the same unsigned app.
 
-| File | What it is |
-| --- | --- |
-| `NeoFile_<version>_x64-setup.exe` | NSIS setup |
-| `NeoFile_<version>_x64.msi` | MSI package |
-
-Both are 64-bit. The app is not Authenticode-signed.
+No Visual Studio, Rust, or Node install is required.
 
 ## SmartScreen
 
-Windows may show **Windows protected your PC**. That is SmartScreen reacting to an unsigned installer.
-
-1. Choose **More info**.
-2. Choose **Run anyway**.
-3. Finish the setup wizard, or continue the MSI.
+The installer is not Authenticode-signed. Windows can show **Windows protected your PC**. NeoFile cannot remove that warning, and these steps do not ask you to turn SmartScreen off.
 
 If your organization blocks unsigned apps with AppLocker or WDAC, a local admin has to allow the file. NeoFile cannot bypass that policy.
 
@@ -25,4 +16,4 @@ Closing the window hides NeoFile in the system tray. Quit from the tray menu. Th
 
 ## Remove
 
-Uninstall from **Settings → Apps**, or run the uninstaller that the NSIS setup adds. The MSI uninstalls from the same Apps list.
+Uninstall from **Settings → Apps**. The MSI and the NSIS setup both register there.

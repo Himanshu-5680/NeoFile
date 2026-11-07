@@ -7,23 +7,13 @@ Pick the disk image that matches the Mac:
 | Apple silicon (M1 or later) | `NeoFile_<version>_aarch64.dmg` |
 | Intel | `NeoFile_<version>_x64.dmg` |
 
-The app is not notarized and is not signed with an Apple Developer ID.
+For 1.0.1 those names are `NeoFile_1.0.1_aarch64.dmg` and `NeoFile_1.0.1_x64.dmg`.
+
+The app is not notarized and is not signed with an Apple Developer ID. Open the disk image and drag NeoFile to Applications.
 
 ## Gatekeeper
 
-1. Open the DMG and drag NeoFile to Applications.
-2. Right-click NeoFile in Applications and choose **Open**.
-3. Choose **Open** again in the dialog.
-
-The first launch from the dock or Spotlight can fail until that right-click Open has been accepted once.
-
-If Gatekeeper still refuses the app, clear the quarantine flag and try the right-click again:
-
-```bash
-xattr -cr /Applications/NeoFile.app
-```
-
-## Apple silicon and Intel
+Gatekeeper can block the app. These instructions do not include a command to remove that block, and they do not ask you to turn Gatekeeper off. The [web desk](Installation-Web) is the copy that does not go through Gatekeeper.
 
 An Apple silicon Mac can run the x64 image under Rosetta, but the arm64 image is the one to install. An Intel Mac cannot run the arm64 image.
 

@@ -34,4 +34,31 @@ describe("website theme control", () => {
     expect(html).toContain('href="fonts/space-grotesk-latin-700-normal.woff2"');
     expect(html).toContain('src="media/logo.svg"');
   });
+
+  it("points at the published v1.0.1 files and the web desk", () => {
+    expect(html).toContain('href="desk/"');
+    expect(html).toContain("NeoFile web desk");
+    expect(html).toContain("not the native iOS app");
+    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk");
+    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi");
+    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg");
+    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg");
+    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb");
+    expect(html).not.toContain("v1.0.0");
+    expect(html).not.toContain("xattr");
+    expect(html).not.toContain("Run anyway");
+  });
+});
+
+describe("web desk build", () => {
+  const source = readFileSync(new URL("../vite.config.ts", import.meta.url), "utf8");
+  const pages = readFileSync(new URL("../../../.github/workflows/pages.yml", import.meta.url), "utf8");
+
+  it("publishes the browser app only for the Pages build", () => {
+    expect(source).toContain('process.env.VITE_NEOFILE_PWA === "1"');
+    expect(source).toContain('url.origin!==self.location.origin');
+    expect(source).toContain("Not the native iOS or Android app");
+    expect(pages).toContain('VITE_NEOFILE_PWA: "1"');
+    expect(pages).toContain("website/desk");
+  });
 });

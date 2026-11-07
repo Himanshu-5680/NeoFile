@@ -14,7 +14,7 @@ NeoFile 1.0 is the offline desk: one UI, five platform packages, and a public si
 ## Next
 
 1. **Stable Android signing key.** A maintainer stores `ANDROID_KEYSTORE_BASE64` and the password secrets. Later APKs can update over the previous install. Until then, release notes say when a build used a throwaway key.
-2. **Install friction.** Keep the SmartScreen, Gatekeeper, and sideload steps accurate as the OS dialogs change. Notarization and Authenticode are separate decisions because they need paid certificates that are not in this repository.
+2. **Install friction.** Keep the SmartScreen and Gatekeeper descriptions accurate. Trusted Windows and macOS signing needs paid certificates, which are out of scope. The free phone path is the web desk. Do not document a command that turns an OS protection off.
 3. **Parser limits in the UI.** When a sheet, deck, or document hits a known limit, the message should name the limit (formulas, charts, slide positions) in the same words as the FAQ.
 4. **Tests around the shells.** Core tests cover parsing and the sanitizer. The Android plugin and the Tauri tray still need a device or a desktop session to verify. A scripted check that the release workflow's expected filenames exist would catch a rename before a tag is pushed.
 

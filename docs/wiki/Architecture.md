@@ -35,7 +35,7 @@ Release APKs are signed either with the GitHub Actions keystore secrets or with 
 
 ## iOS
 
-The iOS project is the Capacitor shell. `scripts/build-ios-unsigned.sh` builds with `CODE_SIGNING_ALLOWED=NO` and zips `Payload/App.app` into an IPA. AltStore or Sideloadly re-signs that IPA. The repository does not contain a provisioning profile.
+The iOS project is the Capacitor shell. `scripts/build-ios-unsigned.sh` builds with `CODE_SIGNING_ALLOWED=NO` and zips `Payload/App.app` into an IPA. The repository does not contain a provisioning profile, and that IPA is not a normal iPhone install. The hosted web desk is a separate browser build of the same UI.
 
 ## Website
 

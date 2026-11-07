@@ -1,6 +1,6 @@
 # Install on Android
 
-The release asset is `NeoFile-<version>.apk`, for example `NeoFile-1.0.0.apk`.
+The recommended file is `NeoFile-<version>.apk`, for example `NeoFile-1.0.1.apk`.
 
 ## Install the APK
 

@@ -1,27 +1,11 @@
-# Install on iOS
+# Native iOS package
 
-The release asset is `NeoFile-<version>-unsigned.ipa`. iOS will not install that file from the Files app. AltStore or Sideloadly re-signs it with your Apple ID. A free Apple ID works.
+The release also contains `NeoFile-<version>-unsigned.ipa`, for example `NeoFile-1.0.1-unsigned.ipa`.
 
-The IPA is built with code signing turned off. It contains the app bundle and no provisioning profile.
+That file is not a normal install. iOS will not install it from the Files app. It is built with code signing turned off and it contains no provisioning profile. There is no free path in this project that installs this native package on every iPhone.
 
-## Sideloadly
+The free phone install is the [web desk](Installation-Web). In Safari, open the project site, choose Share, then Add to Home Screen. That icon is the browser app, not this IPA.
 
-1. Install [Sideloadly](https://sideloadly.io/) on a computer.
-2. Connect the iPhone and trust the computer.
-3. Drop `NeoFile-<version>-unsigned.ipa` into Sideloadly and sign in with an Apple ID.
-4. On the phone, open **Settings → General → VPN & Device Management** and trust the developer certificate.
-5. Open NeoFile.
+## What the native package would be
 
-## AltStore
-
-1. Install [AltServer](https://altstore.io/) on a computer and AltStore on the phone.
-2. In AltStore, use **My Apps → +** and pick the IPA. Sign in with an Apple ID.
-3. Trust the certificate under **VPN & Device Management**.
-
-## The seven-day limit
-
-A free Apple ID signature lasts about 7 days. When the app stops opening, refresh it from Sideloadly or AltStore. A paid Apple Developer account lasts longer. NeoFile does not include a refresh service of its own.
-
-## What you get
-
-The iOS shell is the same UI as Android, loaded by Capacitor. File pickers use the system document picker. There is no App Store build in this repository.
+The iOS project is the Capacitor shell around the same UI. File pickers in that shell use the system document picker. There is no App Store build in this repository.

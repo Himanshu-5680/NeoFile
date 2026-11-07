@@ -26,6 +26,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build the web desk
+        env:
+          VITE_NEOFILE_PWA: "1"
+        run: npm run build --workspace @neofile/web
+      - name: Copy the web desk into the site
+        run: rm -rf website/desk && mkdir -p website/desk && cp -a apps/web/dist/. website/desk/
       - name: Require GitHub Pages to already be enabled
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

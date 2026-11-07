@@ -11,13 +11,11 @@ Both are x86_64.
 
 ## Debian and Ubuntu
 
-The `.deb` depends on WebKitGTK 4.1, which Ubuntu 24.04 provides.
+The recommended file is the deb. For 1.0.1 it is `NeoFile_1.0.1_amd64.deb`. It depends on `libwebkit2gtk-4.1-0`, `libgtk-3-0`, and `libayatana-appindicator3-1`. Ubuntu 24.04 provides those packages. No Node, Rust, or SDK is required.
 
 ```bash
-sudo apt install ./NeoFile_<version>_amd64.deb
+sudo apt install ./NeoFile_1.0.1_amd64.deb
 ```
-
-Replace `<version>` with the release, for example `1.0.0`.
 
 ## AppImage
 
