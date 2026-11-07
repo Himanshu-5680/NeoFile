@@ -46,4 +46,4 @@ No account, no sync, and no analytics.
 
 ## Who maintains it?
 
-Himanshu Pathak ([@Himanshu-5680](https://github.com/Himanshu-5680)), with contributions credited in the README. The code of conduct is the Contributor Covenant. Security reports go through the private advisory form, not a public issue.
+Himanshu Pathak ([@Himanshu-5680](https://github.com/Himanshu-5680)) owns and maintains NeoFile. The GitHub logins pavitra-prabhakar and vectornomadhp88 are other accounts of the same person, not separate maintainers. The implementation was AI-assisted. The code of conduct is the Contributor Covenant. Security reports go through the private advisory form, not a public issue.
