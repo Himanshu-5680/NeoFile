@@ -36,54 +36,46 @@
 
 ## Download
 
-Release [v1.0.0](https://github.com/Himanshu-5680/NeoFile/releases/tag/v1.0.0). These builds are not signed with an Apple or Microsoft certificate. See the install notes before the first launch.
+Current release: [v1.0.1](https://github.com/Himanshu-5680/NeoFile/releases/tag/v1.0.1). One recommended file for each system is below. The project site also hosts [NeoFile web desk](https://himanshu-5680.github.io/NeoFile/desk/), which is the browser app. It is not the native iOS app.
 
-| Platform | File | Install |
+| System | Recommended file | What to expect |
 | --- | --- | --- |
-| Android | [NeoFile-1.0.0.apk](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile-1.0.0.apk) | Copy the APK to the phone and open it. Allow install from your files app if Android asks. |
-| Windows | [NeoFile_1.0.0_x64-setup.exe](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile_1.0.0_x64-setup.exe) · [MSI](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile_1.0.0_x64.msi) | SmartScreen may say "Windows protected your PC". Choose **More info**, then **Run anyway**. |
-| macOS Apple silicon | [NeoFile_1.0.0_aarch64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile_1.0.0_aarch64.dmg) | Gatekeeper blocks unsigned apps. Right-click the app, choose **Open**, then **Open** again. |
-| macOS Intel | [NeoFile_1.0.0_x64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile_1.0.0_x64.dmg) | Same Gatekeeper step as Apple silicon. |
-| Linux | [NeoFile_1.0.0_amd64.deb](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile_1.0.0_amd64.deb) · [AppImage](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile_1.0.0_amd64.AppImage) | `sudo apt install ./NeoFile_1.0.0_amd64.deb`, or `chmod +x` the AppImage and run it. |
-| iOS | [NeoFile-1.0.0-unsigned.ipa](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.0/NeoFile-1.0.0-unsigned.ipa) | Unsigned. Sideload with AltStore or Sideloadly. Steps below. |
+| Browser, including iPhone | [Web desk](https://himanshu-5680.github.io/NeoFile/desk/) | Open the page. On iPhone, use Safari, Share, Add to Home Screen. The first open needs a network connection. Later opens can work offline until the browser removes the saved copy. |
+| Android | [NeoFile-1.0.1.apk](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk) | Open the APK. Android can ask you to allow that app to install unknown apps. Not a store install, and not zero steps. |
+| Windows 64-bit | [NeoFile_1.0.1_x64.msi](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi) | SmartScreen can say "Windows protected your PC" because the installer is not Authenticode-signed. NeoFile cannot clear that warning. |
+| macOS Apple silicon | [NeoFile_1.0.1_aarch64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg) | Not notarized. Gatekeeper can block the app. |
+| macOS Intel | [NeoFile_1.0.1_x64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg) | Same notarization limit as Apple silicon. |
+| Linux x86_64 | [NeoFile_1.0.1_amd64.deb](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb) | `sudo apt install ./NeoFile_1.0.1_amd64.deb`. Depends on `libwebkit2gtk-4.1-0`, `libgtk-3-0`, and `libayatana-appindicator3-1`. |
+
+Other files on the same release, not the recommended install: `NeoFile_1.0.1_x64-setup.exe`, `NeoFile_1.0.1_amd64.AppImage`, and `NeoFile-1.0.1-unsigned.ipa`. The IPA is not a one-tap iPhone install. iOS will not install it from Files.
 
 The logo is [assets/logo.svg](assets/logo.svg). A 1024 px PNG is attached to the release as `logo-1024.png`.
 
 ## Install notes
 
+### Web desk
+
+The hosted page is the same editor UI, running in the browser. Add to Home Screen saves that web app. It does not become the native iOS or Android package. File picking uses the browser. The first visit downloads the page. Offline use starts after that save, and the browser can delete it later.
+
 ### Android
 
-The APK requests no `INTERNET` permission. The release file in CI is signed with the test key in `apps/web/signing` so it can be installed. That key is public. Do not use it for a Play Store app.
+The APK requests no `INTERNET` permission. v1.0.1 is signed with a throwaway key created during the GitHub build because the release keystore secrets were not set. That key is not in git, it is not a Play signing key, and it is not the v1.0.0 key. Installing 1.0.1 over 1.0.0 fails until the older app is removed.
 
 ### Windows
 
-Closing the window hides NeoFile in the system tray. Quit from the tray menu. SmartScreen appears because the installer is not Authenticode-signed.
+The MSI is the recommended installer. The exe is the same unsigned app. Closing the window hides NeoFile in the system tray. Quit from the tray menu. SmartScreen appears because the installer is not Authenticode-signed. These notes do not ask you to turn SmartScreen off.
 
 ### macOS
 
-Open the DMG and drag NeoFile to Applications. If Gatekeeper still refuses after the right-click Open, run `xattr -cr /Applications/NeoFile.app` and try the right-click again. The app is not notarized.
+Open the DMG and drag NeoFile to Applications. The app is not notarized. Gatekeeper can block it. These notes do not include a command to strip that protection. Use the web desk if you need a copy that does not go through Gatekeeper.
 
 ### Linux
 
-The `.deb` depends on WebKitGTK 4.1, which Ubuntu 24.04 provides. The AppImage is the same app in one file. Video playback in the AppImage needs the system GStreamer plugins (`gstreamer1.0-plugins-good` on Debian and Ubuntu).
+No Node, Rust, or SDK is required for the deb. Ubuntu 24.04 provides the three libraries named above. The AppImage is the other file: `chmod +x NeoFile_1.0.1_amd64.AppImage` and run it. Video playback in the AppImage needs `gstreamer1.0-plugins-good` on Debian and Ubuntu.
 
-### iOS sideload
+### iOS
 
-The IPA from CI is **unsigned**. iOS will not install it from Files. AltStore and Sideloadly re-sign it with your Apple ID.
-
-Sideloadly:
-
-1. Install [Sideloadly](https://sideloadly.io/) on a computer.
-2. Connect the iPhone and trust the computer.
-3. Drop `NeoFile-1.0.0-unsigned.ipa` into Sideloadly and sign in with an Apple ID. A free Apple ID works.
-4. On the phone, open Settings → General → VPN & Device Management and trust the developer certificate.
-5. A free account’s signature lasts about 7 days. Refresh it from Sideloadly when the app stops opening.
-
-AltStore:
-
-1. Install [AltServer](https://altstore.io/) on a computer and AltStore on the phone.
-2. In AltStore, use **My Apps → +** and pick the IPA. Sign in with an Apple ID.
-3. Trust the certificate under VPN & Device Management. Refresh AltStore at least every 7 days on a free account.
+There is no free universal install of the native iOS package. The unsigned IPA has no provisioning profile. The free phone path is the web desk.
 
 ## What it does
 

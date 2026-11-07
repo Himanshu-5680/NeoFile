@@ -34,7 +34,7 @@ include enough detail to reproduce the impact.
 ## What is out of scope
 
 - SmartScreen or Gatekeeper warnings on the unsigned Windows and macOS installers. Those warnings are documented in the README.
-- The iOS IPA being unsigned. It is meant to be re-signed with AltStore or Sideloadly.
+- The iOS IPA being unsigned. It is not a normal install, and the web desk is the separate browser copy.
 - An APK signed by the throwaway CI key when repository signing secrets are not configured. The release notes call that out. It is not a Play Store identity.
 - Missing spreadsheet formula recalculation, Word editing, or PowerPoint layout. Those are product limits, not vulnerabilities.
 - A request to add accounts, sync, or analytics.

@@ -30,6 +30,14 @@ jobs:
         run: npm test
       - name: Build the web UI
         run: npm run build --workspace @neofile/web
+      - name: Build the web desk
+        env:
+          VITE_NEOFILE_PWA: "1"
+        run: |
+          npm run build --workspace @neofile/web
+          test -f apps/web/dist/sw.js
+          test -f apps/web/dist/manifest.webmanifest
+          grep -q "NeoFile web desk" apps/web/dist/index.html
       - name: Source size budget
         run: node scripts/size-budget.mjs
       - name: Reject committed secrets

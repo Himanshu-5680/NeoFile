@@ -9,14 +9,16 @@ upload them.
 Read the install notes in the [README](README.md) and the wiki pages under
 [docs/wiki](docs/wiki/Home.md):
 
+- [Web desk](docs/wiki/Installation-Web.md)
 - [Android](docs/wiki/Installation-Android.md)
 - [Windows](docs/wiki/Installation-Windows.md)
 - [macOS](docs/wiki/Installation-macOS.md)
 - [Linux](docs/wiki/Installation-Linux.md)
-- [iOS sideload](docs/wiki/Installation-iOS.md)
+- [iOS package](docs/wiki/Installation-iOS.md)
 
-Windows SmartScreen, macOS Gatekeeper, and the unsigned iOS IPA are expected.
-The matching wiki page has the click path.
+Windows SmartScreen and macOS Gatekeeper warnings are expected on the unsigned
+native packages. The docs do not include a command to turn those protections
+off. The iPhone path that does not need a native package is the web desk.
 
 For a question that the docs do not answer, open a GitHub issue and choose the
 question form. If repository Discussions are enabled, prefer a discussion for

@@ -25,8 +25,8 @@ body:
     id: version
     attributes:
       label: NeoFile version
-      description: The release tag, for example 1.0.0. Browser builds can say "dev".
-      placeholder: 1.0.0
+      description: The release tag, for example 1.0.1. Browser builds can say "dev" or "web desk".
+      placeholder: 1.0.1
     validations:
       required: true
   - type: input

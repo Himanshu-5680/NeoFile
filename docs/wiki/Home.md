@@ -6,11 +6,12 @@ The logo is `assets/logo.svg`. The public site is [himanshu-5680.github.io/NeoFi
 
 ## Install
 
+- [Web desk](Installation-Web)
 - [Android](Installation-Android)
 - [Windows](Installation-Windows)
 - [macOS](Installation-macOS)
 - [Linux](Installation-Linux)
-- [iOS](Installation-iOS)
+- [iOS package](Installation-iOS)
 
 ## Build and design
 

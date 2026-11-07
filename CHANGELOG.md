@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- The project site and the install docs name the v1.0.1 files, one recommended download per system, and the real signing limits. They no longer tell anyone to strip the macOS quarantine flag or to turn SmartScreen off.
+- The project site can publish the existing browser UI as NeoFile web desk. That copy is labeled as a web app. It is not a native iOS install. The first open needs a network connection.
+
 ## 1.0.1
 
 - Spreadsheet reads use SheetJS CE 0.20.3. PDF.js is 6.2.108, and PDF pages draw after the page shell is on screen.

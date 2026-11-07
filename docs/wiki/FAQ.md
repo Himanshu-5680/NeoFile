@@ -22,11 +22,11 @@ No. The manifest removes `INTERNET`. Fonts are bundled. Recent files and snapsho
 
 ## Why does SmartScreen or Gatekeeper complain?
 
-The Windows and macOS installers are not signed with a Microsoft or Apple certificate. The install pages have the click path: [Windows](Installation-Windows), [macOS](Installation-macOS).
+The Windows and macOS installers are not signed with a Microsoft or Apple certificate. NeoFile cannot clear those warnings. The install pages do not include a command to turn the protection off: [Windows](Installation-Windows), [macOS](Installation-macOS). The [web desk](Installation-Web) does not go through those checks.
 
-## Why does the iPhone app stop opening?
+## Can I install NeoFile on an iPhone?
 
-A free Apple ID sideload expires after about 7 days. Refresh it in Sideloadly or AltStore. See [Install on iOS](Installation-iOS).
+The native package is an unsigned IPA. iOS will not install it from Files, and there is no free universal install of that native app. The free path is the [web desk](Installation-Web): Safari, Share, Add to Home Screen. That icon is the browser app.
 
 ## Why will an Android update not install over the app I have?
 
