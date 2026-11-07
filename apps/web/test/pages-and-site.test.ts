@@ -60,6 +60,7 @@ describe("web desk build", () => {
     expect(source).toContain("Not the native iOS or Android app");
     expect(pages).toContain('VITE_NEOFILE_PWA: "1"');
     expect(pages).toContain("website/desk");
+    expect(pages).toContain("apps/web/**");
   });
 
   it("loads the mark from the build base so the hosted desk does not ask the domain root", () => {
