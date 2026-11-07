@@ -3,6 +3,11 @@ import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { toArrayBuffer } from "@/lib/bytes";
 import { registry } from "@/state/registry";
 
+export function docxPreviewMarkup(phase: "loading" | "ready", html: string): string {
+  if (phase === "loading") return "<p>Reading the document…</p>";
+  return html || "<p>No preview text.</p>";
+}
+
 export function DocxViewer({
   docId,
   onText,
@@ -15,6 +20,7 @@ export function DocxViewer({
   const [html, setHtml] = useState("");
   const [text, setText] = useState("");
   const [mode, setMode] = useState<"preview" | "text">("preview");
+  const [phase, setPhase] = useState<"loading" | "ready">("loading");
   const [error, setError] = useState<string | null>(null);
   const onTextRef = useRef(onText);
   const onExportRef = useRef(onExportHtml);
@@ -23,6 +29,10 @@ export function DocxViewer({
 
   useEffect(() => {
     let cancel = false;
+    setPhase("loading");
+    setHtml("");
+    setText("");
+    setError(null);
     (async () => {
       const mammoth = await import("mammoth");
       const buffer = toArrayBuffer(registry.getBytes(docId));
@@ -34,6 +44,7 @@ export function DocxViewer({
       const clean = sanitizeHtml(preview.value);
       setHtml(clean);
       setText(raw.value);
+      setPhase("ready");
       onTextRef.current(raw.value);
     })().catch((reason: unknown) => {
       if (!cancel) setError(reason instanceof Error ? reason.message : "Could not preview this document");
@@ -55,14 +66,15 @@ export function DocxViewer({
           <button className="brut" type="button" style={{ padding: "4px 8px" }} onClick={() => onExportRef.current(html)}>Export HTML</button>
         </div>
       </div>
-      {error ? <div className="pane-message">{error}</div> : null}
-      <div className="preview-scroll">
-        {mode === "preview" ? (
-          <article className="docx-html" dangerouslySetInnerHTML={{ __html: html || "<p>Reading the document…</p>" }} onClick={blockLinks} />
-        ) : (
-          <article className="docx-html"><pre>{text || "No text extracted."}</pre></article>
-        )}
-      </div>
+      {error ? <div className="pane-message">{error}</div> : (
+        <div className="preview-scroll">
+          {mode === "preview" ? (
+            <article className="docx-html" dangerouslySetInnerHTML={{ __html: docxPreviewMarkup(phase, html) }} onClick={blockLinks} />
+          ) : (
+            <article className="docx-html"><pre>{phase === "loading" ? "Reading the document…" : text || "No text extracted."}</pre></article>
+          )}
+        </div>
+      )}
     </div>
   );
 }

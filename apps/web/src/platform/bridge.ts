@@ -41,14 +41,28 @@ interface NeoPlugin {
   addListener(event: "shareReceived", cb: () => void): Promise<{ remove: () => Promise<void> }>;
 }
 
-async function android(): Promise<NeoPlugin> {
-  const { registerPlugin } = await import("@capacitor/core");
-  return registerPlugin<NeoPlugin>("NeoFile");
+let androidPlugin: NeoPlugin | null = null;
+
+/**
+ * Capacitor plugin proxies are thenable. Returning one from an async function
+ * makes the caller await a native "then" method, which this plugin does not have,
+ * and the desk never finishes opening.
+ */
+export function holdPlugin<T extends object>(plugin: T): { plugin: T } {
+  return { plugin };
+}
+
+async function android(): Promise<{ plugin: NeoPlugin }> {
+  if (!androidPlugin) {
+    const { registerPlugin } = await import("@capacitor/core");
+    androidPlugin = registerPlugin<NeoPlugin>("NeoFile");
+  }
+  return holdPlugin(androidPlugin);
 }
 
 export async function pickOpenFiles(): Promise<PickedFile[] | "fallback"> {
   if (isAndroid()) {
-    const plugin = await android();
+    const { plugin } = await android();
     const result = await plugin.pickFiles();
     return result.files.map((file) => ({
       name: file.name,
@@ -166,14 +180,14 @@ function joinPath(parent: string, name: string): string {
 }
 
 export async function pickDirectoryAndroid(): Promise<TreeNode | null> {
-  const plugin = await android();
+  const { plugin } = await android();
   const picked = await plugin.pickFolder();
   if (!picked?.uri) return null;
   return { id: nodeId("dir"), name: picked.name || "Folder", kind: "dir", uri: picked.uri, children: null };
 }
 
 export async function readDirUri(uri: string): Promise<TreeNode[]> {
-  const plugin = await android();
+  const { plugin } = await android();
   const result = await plugin.listDir({ uri });
   return sortNodes(
     result.entries.map((entry) => ({
@@ -187,32 +201,32 @@ export async function readDirUri(uri: string): Promise<TreeNode[]> {
 }
 
 export async function readUriBytes(uri: string): Promise<{ name: string; bytes: Uint8Array }> {
-  const plugin = await android();
+  const { plugin } = await android();
   const result = await plugin.readUri({ uri });
   return { name: result.name, bytes: base64ToBytes(result.base64) };
 }
 
 export async function pendingShares(): Promise<InboxItem[]> {
   if (!isAndroid()) return [];
-  const plugin = await android();
+  const { plugin } = await android();
   const result = await plugin.pendingShares();
   return result.files ?? [];
 }
 
 export async function readShare(id: string): Promise<{ name: string; bytes: Uint8Array }> {
-  const plugin = await android();
+  const { plugin } = await android();
   const result = await plugin.readShare({ id });
   return { name: result.name, bytes: base64ToBytes(result.base64) };
 }
 
 export async function dismissShare(id: string): Promise<void> {
-  const plugin = await android();
+  const { plugin } = await android();
   await plugin.dismissShare({ id });
 }
 
 export async function listenForShares(onShare: () => void): Promise<() => void> {
   if (!isAndroid()) return () => undefined;
-  const plugin = await android();
+  const { plugin } = await android();
   const handle = await plugin.addListener("shareReceived", onShare);
   return () => {
     void handle.remove();
@@ -225,7 +239,7 @@ export async function saveBytes(name: string, bytes: Uint8Array, path?: string |
     return "disk";
   }
   if (isAndroid()) {
-    const plugin = await android();
+    const { plugin } = await android();
     await plugin.saveFile({ name: safeFileName(name), mime: mimeFor(name), base64: bytesToBase64(bytes) });
     return "android";
   }
