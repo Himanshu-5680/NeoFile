@@ -60,5 +60,12 @@ describe("web desk build", () => {
     expect(source).toContain("Not the native iOS or Android app");
     expect(pages).toContain('VITE_NEOFILE_PWA: "1"');
     expect(pages).toContain("website/desk");
+    expect(pages).toContain("apps/web/**");
+  });
+
+  it("loads the mark from the build base so the hosted desk does not ask the domain root", () => {
+    const titleBar = readFileSync(new URL("../src/components/TitleBar.tsx", import.meta.url), "utf8");
+    expect(titleBar).toContain("${import.meta.env.BASE_URL}logo.svg");
+    expect(titleBar).not.toContain('src="/logo.svg"');
   });
 });

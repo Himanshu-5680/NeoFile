@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - website/**
+      - apps/web/**
+      - packages/core/**
+      - assets/logo-512.png
       - .github/workflows/pages.yml
   workflow_dispatch:
 
