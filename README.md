@@ -47,7 +47,7 @@ Current release: [v1.0.1](https://github.com/Himanshu-5680/NeoFile/releases/tag/
 | macOS Intel | [NeoFile_1.0.1_x64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg) | Same notarization limit as Apple silicon. |
 | Linux x86_64 | [NeoFile_1.0.1_amd64.deb](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb) | `sudo apt install ./NeoFile_1.0.1_amd64.deb`. Depends on `libwebkit2gtk-4.1-0`, `libgtk-3-0`, and `libayatana-appindicator3-1`. |
 
-Other files on the same release, not the recommended install: `NeoFile_1.0.1_x64-setup.exe`, `NeoFile_1.0.1_amd64.AppImage`, and `NeoFile-1.0.1-unsigned.ipa`. The IPA is not a one-tap iPhone install. iOS will not install it from Files.
+Other files on the same release, not the recommended install: `NeoFile_1.0.1_x64-setup.exe`, `NeoFile_1.0.1_amd64.AppImage`, and `NeoFile-1.0.1-unsigned.ipa`. The IPA is an unsigned device build, not a one-tap iPhone install, and not a simulator build. Inside that published file the bundle version is 1.0, build 1. iOS will not install it from Files.
 
 The logo is [assets/logo.svg](assets/logo.svg). A 1024 px PNG is attached to the release as `logo-1024.png`.
 

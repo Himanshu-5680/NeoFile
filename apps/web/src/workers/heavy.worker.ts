@@ -1,4 +1,5 @@
 import { detectDelimiter, parseCsv, searchDocuments, type Delimiter, type SearchDoc, type SearchHit } from "@neofile/core";
+import { workbookRejection } from "../lib/sheets";
 import * as XLSX from "xlsx";
 
 type Request =
@@ -24,6 +25,8 @@ self.onmessage = (event: MessageEvent<Request>) => {
       return;
     }
     if (message.type === "xlsx") {
+      const rejection = workbookRejection(message.bytes);
+      if (rejection) throw new Error(rejection);
       const workbook = XLSX.read(message.bytes, { type: "array", cellDates: true });
       const sheets =
         workbook.SheetNames.length === 0

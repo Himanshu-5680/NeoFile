@@ -32,7 +32,17 @@ function sheetName(name: string, used: Set<string>, index: number): string {
   return next;
 }
 
+export function workbookRejection(bytes: Uint8Array): string | null {
+  if (bytes.byteLength === 0) return "This spreadsheet file is empty.";
+  const zip = bytes.byteLength >= 2 && bytes[0] === 0x50 && bytes[1] === 0x4b;
+  const ole = bytes.byteLength >= 4 && bytes[0] === 0xd0 && bytes[1] === 0xcf && bytes[2] === 0x11 && bytes[3] === 0xe0;
+  if (!zip && !ole) return "This file is not a spreadsheet workbook.";
+  return null;
+}
+
 export async function sheetsFromXlsx(bytes: Uint8Array): Promise<{ name: string; rows: string[][] }[]> {
+  const rejection = workbookRejection(bytes);
+  if (rejection) throw new Error(rejection);
   const XLSX = await import("xlsx");
   const workbook = XLSX.read(bytes, { type: "array", cellDates: true });
   if (workbook.SheetNames.length === 0) return [{ name: "Sheet1", rows: [[""]] }];

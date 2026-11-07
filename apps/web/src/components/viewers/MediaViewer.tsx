@@ -19,6 +19,7 @@ export function MediaViewer({
 }) {
   const url = registry.objectUrl(docId);
   const [source, setSource] = useState(false);
+  const [broken, setBroken] = useState(false);
   return (
     <div className="editor-fill" style={{ display: "flex", flexDirection: "column" }}>
       {kind === "image" && name.toLowerCase().endsWith(".svg") ? (
@@ -33,7 +34,8 @@ export function MediaViewer({
         <CodeEditor text={decodeText(registry.getBytes(docId))} highlighter="xml" readOnly mode={mode} accent={accent} onChange={() => undefined} />
       ) : (
         <div className="media-stage">
-          {kind === "image" ? <img src={url} alt={name} /> : null}
+          {kind === "image" ? <img src={url} alt={name} onError={() => setBroken(true)} /> : null}
+          {broken ? <p>This image could not be decoded.</p> : null}
           {kind === "audio" ? <audio src={url} controls /> : null}
           {kind === "video" ? <video src={url} controls playsInline /> : null}
         </div>
