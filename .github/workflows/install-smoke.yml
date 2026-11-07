@@ -104,43 +104,58 @@ jobs:
             ${{ runner.temp }}/launch-out.txt
 
   ios-simulator:
-    name: iOS simulator install attempt
+    name: iOS simulator build and launch
     runs-on: macos-latest
+    timeout-minutes: 25
     steps:
-      - name: Download the published unsigned IPA
-        run: curl -fL -o NeoFile.ipa "https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1-unsigned.ipa"
-      - name: Try to install on a simulator
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build the app for the simulator SDK
         run: |
-          set +e
-          xcrun simctl list devices available | head -40 | tee "$RUNNER_TEMP/sims.txt"
+          set -euo pipefail
+          npm run build --workspace @neofile/web
+          (cd apps/web && npx cap sync ios)
+          cd apps/web/ios/App
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/ios-derived" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+      - name: Install and launch the simulator app
+        run: |
+          set -euo pipefail
+          APP="$(find "$RUNNER_TEMP/ios-derived" -type d -name 'App.app' -path '*iphonesimulator*' | head -1)"
+          echo "app=$APP" | tee "$RUNNER_TEMP/simctl.txt"
+          test -n "$APP"
+          # The published IPA is an iphoneos device build. This job does not install that IPA.
+          plutil -p "$APP/Info.plist" | tee "$RUNNER_TEMP/plist.txt" | head -40
           UDID=$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ && /Shutdown|Booted/ {print $2; exit}')
-          echo "udid=$UDID" | tee -a "$RUNNER_TEMP/sims.txt"
-          if [ -z "$UDID" ]; then echo "no simulator" | tee "$RUNNER_TEMP/simctl.txt"; exit 1; fi
+          echo "udid=$UDID" | tee -a "$RUNNER_TEMP/simctl.txt"
+          test -n "$UDID"
           xcrun simctl boot "$UDID" || true
-          xcrun simctl bootstatus "$UDID" -b > "$RUNNER_TEMP/boot.txt" 2>&1
-          echo "boot=$?" | tee -a "$RUNNER_TEMP/boot.txt"
-          xcrun simctl install "$UDID" NeoFile.ipa > "$RUNNER_TEMP/simctl.txt" 2>&1
-          INSTALL=$?
-          echo "install=$INSTALL" | tee -a "$RUNNER_TEMP/simctl.txt"
-          if [ "$INSTALL" -ne 0 ]; then
-            echo "install failed; this IPA is an iphoneos build and is not a normal device install" | tee -a "$RUNNER_TEMP/simctl.txt"
-            exit "$INSTALL"
-          fi
-          xcrun simctl launch "$UDID" app.neofile.local > "$RUNNER_TEMP/launch.txt" 2>&1
-          LAUNCH=$?
-          echo "launch=$LAUNCH" | tee -a "$RUNNER_TEMP/launch.txt"
-          sleep 4
-          xcrun simctl spawn "$UDID" log show --last 1m --style compact --predicate 'subsystem CONTAINS "neofile" OR processImagePath CONTAINS "App"' > "$RUNNER_TEMP/syslog.txt" 2>&1 || true
-          # Simulator install is not a phone install and not App Store distribution.
-          exit "$LAUNCH"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl launch "$UDID" app.neofile.local | tee "$RUNNER_TEMP/launch.txt"
+          sleep 6
+          xcrun simctl spawn "$UDID" log show --last 30s --style compact --predicate 'processImagePath CONTAINS "App"' > "$RUNNER_TEMP/syslog.txt" 2>&1 || true
+          grep -q . "$RUNNER_TEMP/launch.txt"
       - name: Upload logs
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: ios-simulator-logs
           path: |
-            ${{ runner.temp }}/sims.txt
-            ${{ runner.temp }}/boot.txt
             ${{ runner.temp }}/simctl.txt
+            ${{ runner.temp }}/plist.txt
             ${{ runner.temp }}/launch.txt
             ${{ runner.temp }}/syslog.txt
