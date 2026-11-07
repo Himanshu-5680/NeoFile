@@ -12,6 +12,7 @@ interface PdfPage {
 export function PdfViewer({ docId, onText }: { docId: string; onText: (text: string) => void }) {
   const bytes = registry.getBytes(docId);
   const host = useRef<HTMLDivElement>(null);
+  const docRef = useRef<import("pdfjs-dist").PDFDocumentProxy | null>(null);
   const [pages, setPages] = useState<PdfPage[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
@@ -22,13 +23,26 @@ export function PdfViewer({ docId, onText }: { docId: string; onText: (text: str
 
   useEffect(() => {
     let cancel = false;
-    const rendered = new Set<number>();
-    const pageText: string[] = [];
+    let destroyed = false;
+    let task: import("pdfjs-dist").PDFDocumentLoadingTask | null = null;
+    const stop = () => {
+      if (destroyed) return;
+      destroyed = true;
+      void task?.destroy();
+    };
+    setPages([]);
+    setError(null);
+    setStatus("Opening PDF");
     (async () => {
       const pdfjs = await import("pdfjs-dist");
       const worker = await import("pdfjs-dist/build/pdf.worker.min.mjs?url");
       pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
-      const doc = await pdfjs.getDocument({ data: toArrayBuffer(bytes) }).promise;
+      task = pdfjs.getDocument({ data: toArrayBuffer(bytes) });
+      if (cancel) {
+        stop();
+        return;
+      }
+      const doc = await task.promise;
       if (cancel) return;
       const next: PdfPage[] = [];
       for (let pageNo = 1; pageNo <= doc.numPages; pageNo++) {
@@ -37,33 +51,55 @@ export function PdfViewer({ docId, onText }: { docId: string; onText: (text: str
         next.push({ page: pageNo, width: viewport.width, height: viewport.height });
       }
       if (cancel) return;
+      docRef.current = doc;
       setPages(next);
       setStatus(`${doc.numPages} page${doc.numPages === 1 ? "" : "s"} · view only`);
-
-      const root = host.current;
-      if (!root) return;
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
-            const pageNo = Number((entry.target as HTMLElement).dataset.page);
-            if (rendered.has(pageNo)) continue;
-            rendered.add(pageNo);
-            void renderPage(doc, pageNo, entry.target as HTMLElement, pageText, () => {
-              if (!cancel) onTextRef.current(pageText.filter(Boolean).join("\n\n"));
-            });
-          }
-        },
-        { root, rootMargin: "400px" },
-      );
-      root.querySelectorAll<HTMLElement>("[data-page]").forEach((node) => observer.observe(node));
     })().catch((reason: unknown) => {
       if (!cancel) setError(reason instanceof Error ? reason.message : "Could not open this PDF");
     });
     return () => {
       cancel = true;
+      docRef.current = null;
+      stop();
     };
   }, [docId, bytes]);
+
+  // Page shells are committed by React after setPages. Observing before that
+  // finds no nodes, so the canvas and text layer never get drawn.
+  useEffect(() => {
+    const doc = docRef.current;
+    const root = host.current;
+    if (!doc || !root || pages.length === 0) return;
+    let cancel = false;
+    const rendered = new Set<number>();
+    const pageText: string[] = [];
+    const publish = () => {
+      if (!cancel) onTextRef.current(pageText.filter(Boolean).join("\n\n"));
+    };
+    const paint = (pageNo: number, node: HTMLElement) => {
+      if (!pageNo || rendered.has(pageNo) || cancel) return;
+      rendered.add(pageNo);
+      void renderPage(doc, pageNo, node, pageText, publish).catch(() => undefined);
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting || cancel) continue;
+          const node = entry.target as HTMLElement;
+          paint(Number(node.dataset.page), node);
+        }
+      },
+      { root, rootMargin: "400px" },
+    );
+    const shells = [...root.querySelectorAll<HTMLElement>("[data-page]")];
+    shells.forEach((node) => observer.observe(node));
+    const first = shells[0];
+    if (first) paint(Number(first.dataset.page), first);
+    return () => {
+      cancel = true;
+      observer.disconnect();
+    };
+  }, [pages]);
 
   useEffect(() => {
     host.current?.querySelectorAll<HTMLElement>("[data-page]").forEach((page) => {

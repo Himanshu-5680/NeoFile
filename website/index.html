@@ -261,6 +261,6 @@
       <p>MIT License</p>
       <p class="credit">Layout pass follows unslop by Damir Sokolovsky (<a href="https://heydamir.design/unslop">@heydamir</a>), CC BY 4.0. Borders and hard shadows stay neo-brutalist.</p>
     </footer>
-    <script>document.getElementById("theme").addEventListener("click",function(){var n=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);this.setAttribute("aria-pressed",n==="dark"?"true":"false");try{localStorage.setItem("neofile-site-theme",n)}catch(e){}})</script>
+    <script>(function(){var button=document.getElementById("theme");function sync(){button.setAttribute("aria-pressed",document.documentElement.getAttribute("data-theme")==="dark"?"true":"false")}sync();button.addEventListener("click",function(){var n=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);sync();try{localStorage.setItem("neofile-site-theme",n)}catch(e){}})})()</script>
   </body>
 </html>

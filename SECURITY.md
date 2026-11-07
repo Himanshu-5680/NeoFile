@@ -48,10 +48,38 @@ absent, the Android job generates a throwaway key on the runner, signs the APK
 so it can be installed, and discards the key. Do not commit a `.keystore`,
 `.jks`, `.p12`, or private key to replace that behavior.
 
-## Known dependency constraint
+## Spreadsheet parser
 
-The `xlsx` package is SheetJS community edition. npm does not receive further
-security releases of that package. NeoFile uses it only on files the person
-using the app chooses to open. There is no server that parses uploads. Opening
-a spreadsheet from someone you do not trust is the same tradeoff as opening it
-in any local tool that uses this parser.
+SheetJS Community Edition stopped publishing to npm at 0.18.5. That release is
+affected by CVE-2023-30533 (prototype pollution while reading a workbook) and
+CVE-2024-22363 (regular-expression denial of service while reading). NeoFile
+reads workbooks the person opens, including in a background worker, so those
+bugs are on a user-controlled path.
+
+The web package depends on SheetJS CE 0.20.3 from the SheetJS CDN
+(`https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz`). That is the community
+release that includes the fixes for those two advisories. The lockfile records
+the tarball integrity. npm's `xlsx` package is not the dependency.
+
+This does not make every future spreadsheet file safe to open. Formula
+recalculation is still absent. Saving still writes cell values and drops
+charts, macros, and most formatting.
+
+## Test runner
+
+`vitest` is pinned at 4.1.12. That release depends on `@vitest/mocker` 4.1.12,
+which includes the fixes for GHSA-82fw-gwwq-j7x9 and GHSA-qxg6-89mg-rqv8.
+Vitest 3.2.7 pulled `tinypool` 1.1.1 (GHSA-5gmw-xhrv-c9v3 and GHSA-85c8-ppgw-ccpr).
+Vitest 4.1.12 does not depend on `tinypool`, so that package is not installed.
+These packages are used by `vitest run`. They are not in the web, desktop, or
+mobile bundles. Vitest 5.x was not required for those advisories.
+
+## PDF viewer
+
+`pdfjs-dist` is pinned at 6.2.108, the first release outside the affected range
+of GHSA-hq66-cqwq-w95j (`>=5.6.83 <6.2.108`). The installed build still enables
+PDF scripting only when `enableScripting` is exactly true. NeoFile draws pages
+to a canvas and a text layer. It does not build an annotation layer. Production
+and desktop Content-Security-Policy set `script-src 'self'`. A later 6.x
+release was not required to leave that advisory range. This is not a claim that
+every PDF is safe to open.

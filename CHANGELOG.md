@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+- Spreadsheet reads use SheetJS CE 0.20.3. PDF.js is 6.2.108, and PDF pages draw after the page shell is on screen.
+- Dropped folders keep their real shape. The Android desk finishes opening, and the native document picker can open a file.
+- GitHub Pages still needs a repository admin to choose GitHub Actions as the source. The workflow no longer pretends the default token can create the site.
+- Windows, macOS, and iOS packages from the release workflow are unsigned. Android uses the release keystore only when those secrets exist; otherwise the workflow signs with a throwaway key and says so. A debug APK is not the release file.
+
 ## 1.0.0
 
 First public release of NeoFile, an offline file desk.

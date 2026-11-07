@@ -47,3 +47,5 @@ Pushing a tag that matches `v*` runs `.github/workflows/release.yml`. That workf
 ## Website
 
 The site in `website/` is static. GitHub Pages publishes that directory. It does not run the Vite app.
+
+The Pages workflow cannot turn the site on. `actions/configure-pages` with `enablement: true` and the default `GITHUB_TOKEN` fails with `Resource not accessible by integration`, because creating a Pages site needs a separate token with administration rights. A repository admin has to open Settings → Pages → Build and deployment → Source and choose GitHub Actions once. After that, a push to `main` that changes `website/` or `.github/workflows/pages.yml` can deploy. Asset URLs in the page are relative, which matches a project site at `/NeoFile/`.
