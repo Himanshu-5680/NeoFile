@@ -67,6 +67,27 @@ export function inkForAccent(accent: string): string {
   return onBlack >= onPaper ? LIGHT_INK : LIGHT_PAPER;
 }
 
+function mixHex(from: string, toward: string, amount: number): string {
+  const left = normalizeHex(from);
+  const right = normalizeHex(toward);
+  if (!left || !right) return from;
+  const channelAt = (hex: string, index: number) => Number.parseInt(hex.slice(index, index + 2), 16);
+  const mix = (index: number) => Math.round(channelAt(left, index) * (1 - amount) + channelAt(right, index) * amount);
+  return `#${[1, 3, 5].map((index) => mix(index).toString(16).padStart(2, "0")).join("")}`;
+}
+
+/** Accent used as text. Button fills stay bright. This darkens a color only when it fails 4.5:1 on the surface. */
+export function readableAccentText(accent: string, background: string): string {
+  const normalized = normalizeHex(accent) ?? accent;
+  if (contrastRatio(normalized, background) >= 4.5) return normalized;
+  let current = normalized;
+  for (let step = 0; step < 16; step += 1) {
+    current = mixHex(current, "#141414", 0.18);
+    if (contrastRatio(current, background) >= 4.5) return current;
+  }
+  return current;
+}
+
 export function resolveTheme(prefs: ThemePrefs): ResolvedTheme {
   const custom = prefs.accent ? normalizeHex(prefs.accent) : null;
   const accent = custom ?? DEFAULT_ACCENT[prefs.mode];

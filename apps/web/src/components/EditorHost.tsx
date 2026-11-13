@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { resolveTheme } from "@neofile/core";
+import { readableAccentText, resolveTheme } from "@neofile/core";
 import { registry, useDocVersion } from "@/state/registry";
 import type { DocMeta } from "@/state/types";
 import { useStore } from "@/state/store";
@@ -93,7 +93,7 @@ function Body({ doc, mdMode, wrap }: { doc: DocMeta; mdMode: "edit" | "preview" 
   useDocVersion(doc.id);
   const theme = resolveTheme(store.prefs);
   const themeMode = theme.mode;
-  const accent = theme.accent;
+  const accent = readableAccentText(theme.accent, theme.surface);
   if (doc.locked && (doc.kind === "csv" || doc.kind === "xlsx")) return <BinaryViewer docId={doc.id} />;
   if (doc.kind === "text") {
     const text = registry.getText(doc.id);
