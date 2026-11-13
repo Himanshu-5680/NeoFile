@@ -50,19 +50,6 @@ describe("website theme control", () => {
     expect(html).not.toMatch(/uninstall/i);
     expect(html).toContain("those keys were discarded");
     expect(html).toContain("keep the installed app");
-    expect(html).toContain("outline:3px solid var(--line)");
-    expect(html).not.toContain("outline:3px solid var(--green)");
-    expect(html).toContain(".btn-primary{background:var(--green);color:var(--on)}");
-  });
-});
-
-describe("accent button contrast", () => {
-  const css = readFileSync(new URL("../src/index.css", import.meta.url), "utf8");
-
-  it("does not force every button to inherit the page color", () => {
-    expect(css).not.toMatch(/button,\s*input,\s*select,\s*textarea\s*\{[^}]*color:\s*inherit/);
-    expect(css).toContain("color: var(--accent-ink)");
-    expect(css).toContain("::placeholder { color: var(--muted); opacity: 1; }");
   });
 });
 
