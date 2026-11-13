@@ -47,13 +47,8 @@ body {
   font-size: 15px;
   letter-spacing: -0.01em;
 }
-input, select, textarea { font: inherit; color: inherit; }
-button { font: inherit; cursor: pointer; }
-::placeholder { color: var(--muted); opacity: 1; }
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 3px solid var(--line);
-  outline-offset: 3px;
-}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
 .app-shell {
@@ -307,7 +302,7 @@ html:not([data-shell="desktop"]) .window-controls { display: none; }
 .pdf-page canvas { display: block; }
 .pdf-text { position: absolute; inset: 0; overflow: hidden; line-height: 1; }
 .pdf-text span { position: absolute; color: transparent; white-space: pre; transform-origin: 0 0; cursor: text; }
-.pdf-text span.pdf-hit { background: var(--accent); color: var(--accent-ink); }
+.pdf-text span.pdf-hit { background: var(--accent); }
 .sheet-scroll { height: 100%; overflow: auto; background: var(--bg); }
 .sheet-tabs { display: flex; gap: 6px; padding: 8px; border-top: 3px solid var(--line); overflow: auto; background: var(--surface); }
 .sheet-cell, .sheet-head, .sheet-corner {

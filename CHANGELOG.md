@@ -2,7 +2,6 @@
 
 ## Unreleased
 
-- Dark mode accent buttons use dark ink on the neon background. A button rule was painting the light page color onto those buttons, about 1:1 contrast. Syntax colors that fail 4.5:1 on the page surface are darkened. The website focus ring uses the line color. The published v1.0.1 installers do not include this change.
 - An empty or non-workbook spreadsheet shows an error instead of a grid of the raw bytes. A downloaded Save updates the restored session. A corrupt image says it could not be decoded.
 - A public Android release stops when the signing secrets are missing. It does not generate a key or upload an APK. Local builds without a password write `NeoFile-debug.apk` only.
 - The install notes say v1.0.0 and v1.0.1 cannot update over each other, that those keys are gone, and that recents and snapshots stay in the installed app. They no longer tell anyone to remove the app to upgrade.
