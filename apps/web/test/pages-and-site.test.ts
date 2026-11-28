@@ -15,6 +15,12 @@ describe("pages workflow", () => {
     expect(yaml).toContain("name: github-pages-${{ github.run_attempt }}");
     expect(yaml).toContain("artifact_name: github-pages-${{ github.run_attempt }}");
   });
+
+  it("waits for the uploaded artifact to become visible before deploying", () => {
+    expect(yaml).toContain("actions: read");
+    expect(yaml).toContain("actions/runs/${GITHUB_RUN_ID}/artifacts?name=${ARTIFACT_NAME}");
+    expect(yaml).toContain("Wait for the Pages artifact to be indexed");
+  });
 });
 
 describe("production CSP meta policy", () => {
@@ -26,49 +32,22 @@ describe("production CSP meta policy", () => {
   });
 });
 
-describe("website theme control", () => {
-  const html = readFileSync(new URL("../../../website/index.html", import.meta.url), "utf8");
-
-  it("sets aria-pressed from the current theme before a click", () => {
-    expect(html).toContain('function sync(){button.setAttribute("aria-pressed"');
-    expect(html).toMatch(/sync\(\);button\.addEventListener/);
-  });
-
-  it("keeps site assets relative so a project-site base path can resolve them", () => {
-    expect(html).not.toMatch(/(?:src|href)="\/(?:fonts|media|favicon)/);
-    expect(html).toContain('href="fonts/space-grotesk-latin-700-normal.woff2"');
-    expect(html).toContain('src="media/logo.svg"');
-  });
-
-  it("points at the published v1.0.1 files and the web desk", () => {
-    expect(html).toContain('href="desk/"');
-    expect(html).toContain("NeoFile web desk");
-    expect(html).toContain("not the native iOS app");
-    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk");
-    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi");
-    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg");
-    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg");
-    expect(html).toContain("https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb");
-    expect(html).not.toContain("v1.0.0");
-    expect(html).not.toContain("xattr");
-    expect(html).not.toContain("Run anyway");
-    expect(html).not.toMatch(/uninstall/i);
-    expect(html).toContain("those keys were discarded");
-    expect(html).toContain("keep the installed app");
-  });
-});
-
 describe("web desk build", () => {
   const source = readFileSync(new URL("../vite.config.ts", import.meta.url), "utf8");
   const pages = readFileSync(new URL("../../../.github/workflows/pages.yml", import.meta.url), "utf8");
+  const readme = readFileSync(new URL("../../../README.md", import.meta.url), "utf8");
 
-  it("publishes the browser app only for the Pages build", () => {
+  it("publishes the browser app at the project-site root", () => {
     expect(source).toContain('process.env.VITE_NEOFILE_PWA === "1"');
+    expect(source).toContain('const webDeskBase = "/NeoFile/";');
     expect(source).toContain('url.origin!==self.location.origin');
     expect(source).toContain("Not the native iOS or Android app");
     expect(pages).toContain('VITE_NEOFILE_PWA: "1"');
-    expect(pages).toContain("website/desk");
+    expect(pages).toContain("path: apps/web/dist");
+    expect(pages).not.toContain("website/desk");
     expect(pages).toContain("apps/web/**");
+    expect(readme).toContain("https://himanshu-5680.github.io/NeoFile/");
+    expect(readme).not.toContain("https://himanshu-5680.github.io/NeoFile/desk/");
   });
 
   it("loads the mark from the build base so the hosted desk does not ask the domain root", () => {

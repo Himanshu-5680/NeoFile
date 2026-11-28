@@ -2,7 +2,7 @@
 
 NeoFile is an offline file viewer and editor for Android, iOS, Windows, macOS, and Linux. Text and CSV are editable. Spreadsheet cells can be changed as values. PDF, Word, PowerPoint, and media open as previews. Nothing is uploaded.
 
-The logo is `assets/logo.svg`. The public site is [himanshu-5680.github.io/NeoFile](https://himanshu-5680.github.io/NeoFile/). Installers are attached to [GitHub Releases](https://github.com/Himanshu-5680/NeoFile/releases).
+The logo is `assets/logo.svg`. The public site and browser app are [himanshu-5680.github.io/NeoFile](https://himanshu-5680.github.io/NeoFile/). Installers are attached to [GitHub Releases](https://github.com/Himanshu-5680/NeoFile/releases).
 
 ## Install
 

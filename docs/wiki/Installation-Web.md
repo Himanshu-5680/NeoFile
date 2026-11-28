@@ -1,6 +1,6 @@
 # NeoFile web desk
 
-The web desk is the browser copy of the editor. The address is [himanshu-5680.github.io/NeoFile/desk/](https://himanshu-5680.github.io/NeoFile/desk/).
+The web desk is the browser copy of the editor. The address is [himanshu-5680.github.io/NeoFile/](https://himanshu-5680.github.io/NeoFile/).
 
 It is not the native iOS app, not the Android APK, and not a store listing. The page title is "NeoFile web desk".
 
