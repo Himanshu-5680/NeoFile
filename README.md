@@ -44,14 +44,12 @@
 
 Current release: [v1.0.1](https://github.com/Himanshu-5680/NeoFile/releases/tag/v1.0.1). One recommended file for each system is below. The project site also hosts [NeoFile web desk](https://himanshu-5680.github.io/NeoFile/desk/), which is the browser app. It is not the native iOS app.
 
-| System | Recommended file | What to expect |
-| --- | --- | --- |
-| Browser, including iPhone | [Web desk](https://himanshu-5680.github.io/NeoFile/desk/) | Open the page. On iPhone, use Safari, Share, Add to Home Screen. The first open needs a network connection. Later opens can work offline until the browser removes the saved copy. |
-| Android | [NeoFile-1.0.1.apk](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk) | Open the APK. Android can ask you to allow that app to install unknown apps. Not a store install, and not zero steps. |
-| Windows 64-bit | [NeoFile_1.0.1_x64.msi](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi) | SmartScreen can say "Windows protected your PC" because the installer is not Authenticode-signed. NeoFile cannot clear that warning. |
-| macOS Apple silicon | [NeoFile_1.0.1_aarch64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg) | Not notarized. Gatekeeper can block the app. |
-| macOS Intel | [NeoFile_1.0.1_x64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg) | Same notarization limit as Apple silicon. |
-| Linux x86_64 | [NeoFile_1.0.1_amd64.deb](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb) | `sudo apt install ./NeoFile_1.0.1_amd64.deb`. Depends on `libwebkit2gtk-4.1-0`, `libgtk-3-0`, and `libayatana-appindicator3-1`. |
+- **Browser, including iPhone:** [Open the web desk](https://himanshu-5680.github.io/NeoFile/desk/). On iPhone, use Safari's Share menu and choose Add to Home Screen. The first open needs a network connection; later opens can work offline until the browser removes its saved copy.
+- **Android:** [NeoFile-1.0.1.apk](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk). Android may ask permission to install apps from that source; this is not a store install.
+- **Windows 64-bit:** [NeoFile_1.0.1_x64.msi](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi). SmartScreen may show a warning because the installer is not Authenticode-signed.
+- **macOS Apple silicon:** [NeoFile_1.0.1_aarch64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg). The app is not notarized, so Gatekeeper can block it.
+- **macOS Intel:** [NeoFile_1.0.1_x64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.dmg). The app is not notarized, so Gatekeeper can block it.
+- **Linux x86_64:** [NeoFile_1.0.1_amd64.deb](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_amd64.deb). Install with `sudo apt install ./NeoFile_1.0.1_amd64.deb`; requires `libwebkit2gtk-4.1-0`, `libgtk-3-0`, and `libayatana-appindicator3-1`.
 
 Other files on the same release, not the recommended install: `NeoFile_1.0.1_x64-setup.exe`, `NeoFile_1.0.1_amd64.AppImage`, and `NeoFile-1.0.1-unsigned.ipa`. The IPA is an unsigned device build, not a one-tap iPhone install, and not a simulator build. Inside that published file the bundle version is 1.0, build 1. iOS will not install it from Files.
 
