@@ -17,7 +17,7 @@ export function EditorHost({ doc, pane }: { doc: DocMeta | null; pane: "primary"
   const store = useStore();
   const [hiddenLimit, setHiddenLimit] = useState(false);
   const [mdMode, setMdMode] = useState<"edit" | "preview" | "split">("edit");
-  const [wrap, setWrap] = useState(false);
+  const [wrap, setWrap] = useState(true);
   if (!doc) {
     return (
       <section className={`editor-pane ${store.focus === pane ? "focused" : ""}`} onMouseDown={() => store.setFocus(pane)}>
