@@ -46,16 +46,25 @@ const TEXT_EXT: Record<string, { highlighter: LanguageId; display: string }> = {
   cts: { highlighter: "typescript", display: "TypeScript" },
   tsx: { highlighter: "tsx", display: "TSX" },
   py: { highlighter: "python", display: "Python" },
+  pyi: { highlighter: "python", display: "Python" },
+  pyw: { highlighter: "python", display: "Python" },
   html: { highlighter: "html", display: "HTML" },
   htm: { highlighter: "html", display: "HTML" },
+  xhtml: { highlighter: "html", display: "XHTML" },
   css: { highlighter: "css", display: "CSS" },
+  less: { highlighter: "css", display: "Less" },
+  sass: { highlighter: "css", display: "Sass" },
   scss: { highlighter: "css", display: "SCSS" },
   json: { highlighter: "json", display: "JSON" },
   jsonc: { highlighter: "json", display: "JSON" },
+  json5: { highlighter: "json", display: "JSON5" },
+  jsonl: { highlighter: "json", display: "JSON Lines" },
+  ipynb: { highlighter: "json", display: "Jupyter Notebook" },
   xml: { highlighter: "xml", display: "XML" },
   svg: { highlighter: "xml", display: "SVG" },
   md: { highlighter: "markdown", display: "Markdown" },
   markdown: { highlighter: "markdown", display: "Markdown" },
+  mdx: { highlighter: "markdown", display: "MDX" },
   java: { highlighter: "java", display: "Java" },
   txt: { highlighter: "plain", display: "Plain text" },
   log: { highlighter: "plain", display: "Log" },
@@ -66,23 +75,63 @@ const TEXT_EXT: Record<string, { highlighter: LanguageId; display: string }> = {
   toml: { highlighter: "plain", display: "TOML" },
   ini: { highlighter: "plain", display: "INI" },
   sql: { highlighter: "plain", display: "SQL" },
+  properties: { highlighter: "plain", display: "Properties" },
+  conf: { highlighter: "plain", display: "Configuration" },
+  cfg: { highlighter: "plain", display: "Configuration" },
+  lock: { highlighter: "plain", display: "Lock file" },
+  rst: { highlighter: "plain", display: "reStructuredText" },
+  tex: { highlighter: "plain", display: "LaTeX" },
   sh: { highlighter: "plain", display: "Shell" },
   bash: { highlighter: "plain", display: "Shell" },
   zsh: { highlighter: "plain", display: "Shell" },
+  ps1: { highlighter: "plain", display: "PowerShell" },
+  psm1: { highlighter: "plain", display: "PowerShell" },
+  bat: { highlighter: "plain", display: "Batch" },
+  cmd: { highlighter: "plain", display: "Batch" },
   rs: { highlighter: "plain", display: "Rust" },
   go: { highlighter: "plain", display: "Go" },
   c: { highlighter: "plain", display: "C" },
+  cc: { highlighter: "plain", display: "C++" },
+  cxx: { highlighter: "plain", display: "C++" },
   h: { highlighter: "plain", display: "C header" },
   cpp: { highlighter: "plain", display: "C++" },
   hpp: { highlighter: "plain", display: "C++ header" },
   cs: { highlighter: "plain", display: "C#" },
   rb: { highlighter: "plain", display: "Ruby" },
   php: { highlighter: "plain", display: "PHP" },
+  kt: { highlighter: "plain", display: "Kotlin" },
+  kts: { highlighter: "plain", display: "Kotlin" },
+  swift: { highlighter: "plain", display: "Swift" },
+  dart: { highlighter: "plain", display: "Dart" },
+  scala: { highlighter: "plain", display: "Scala" },
+  lua: { highlighter: "plain", display: "Lua" },
+  pl: { highlighter: "plain", display: "Perl" },
+  r: { highlighter: "plain", display: "R" },
+  rmd: { highlighter: "plain", display: "R Markdown" },
+  gradle: { highlighter: "plain", display: "Gradle" },
+  tf: { highlighter: "plain", display: "Terraform" },
+  graphql: { highlighter: "plain", display: "GraphQL" },
+  gql: { highlighter: "plain", display: "GraphQL" },
+  prisma: { highlighter: "plain", display: "Prisma" },
+  proto: { highlighter: "plain", display: "Protocol Buffers" },
+  dockerignore: { highlighter: "plain", display: "Docker ignore file" },
   vue: { highlighter: "plain", display: "Vue" },
   svelte: { highlighter: "plain", display: "Svelte" },
   env: { highlighter: "plain", display: "Env" },
   gitignore: { highlighter: "plain", display: "Ignore file" },
+  gitattributes: { highlighter: "plain", display: "Git attributes" },
   editorconfig: { highlighter: "plain", display: "EditorConfig" },
+};
+
+const SPECIAL_TEXT_FILES: Record<string, { highlighter: LanguageId; display: string }> = {
+  dockerfile: { highlighter: "plain", display: "Dockerfile" },
+  containerfile: { highlighter: "plain", display: "Containerfile" },
+  makefile: { highlighter: "plain", display: "Makefile" },
+  justfile: { highlighter: "plain", display: "Justfile" },
+  procfile: { highlighter: "plain", display: "Procfile" },
+  "cmakelists.txt": { highlighter: "plain", display: "CMake" },
+  license: { highlighter: "plain", display: "Plain text" },
+  readme: { highlighter: "plain", display: "Plain text" },
 };
 
 const IMAGE_EXT = new Set(["png", "jpg", "jpeg", "gif", "webp", "bmp", "ico", "avif", "svg"]);
@@ -99,6 +148,7 @@ export function extensionOf(name: string): string {
 
 export function detectFile(name: string, mime = ""): FileProfile {
   const ext = extensionOf(name);
+  const baseName = name.trim().toLowerCase().replace(/\\/g, "/").split("/").pop() ?? "";
   const type = mime.toLowerCase();
 
   if (ext === "csv" || ext === "tsv") {
@@ -192,7 +242,7 @@ export function detectFile(name: string, mime = ""): FileProfile {
     };
   }
 
-  const textMeta = TEXT_EXT[ext];
+  const textMeta = TEXT_EXT[ext] ?? SPECIAL_TEXT_FILES[baseName];
   if (textMeta) {
     return {
       kind: "text",
@@ -200,9 +250,11 @@ export function detectFile(name: string, mime = ""): FileProfile {
       highlighter: textMeta.highlighter,
       displayLanguage: textMeta.display,
       label: textMeta.display,
-      limit: textMeta.highlighter === "plain" && !["txt", "log"].includes(ext)
-        ? "Editable as text. Syntax colors are not available for this language."
-        : null,
+      limit: ext === "ipynb"
+        ? "Notebook cells and metadata are edited as JSON. NeoFile does not run notebook code."
+        : textMeta.highlighter === "plain" && !["txt", "log"].includes(ext)
+          ? "Editable as text. Syntax colors are not available for this language."
+          : null,
     };
   }
 

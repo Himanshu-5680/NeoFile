@@ -6,7 +6,7 @@ export function Switch({ checked, onCheckedChange, label }: { checked: boolean; 
       <SwitchPrimitive.Root
         checked={checked}
         onCheckedChange={onCheckedChange}
-        className="h-7 w-12 border-[3px] border-[var(--line)] bg-[var(--surface)] data-[state=checked]:bg-[var(--accent)]"
+        className="h-7 w-12 rounded-md border-2 border-[var(--line)] bg-[var(--surface)] data-[state=checked]:bg-[var(--accent)]"
       >
         <SwitchPrimitive.Thumb className="block h-4 w-4 translate-x-0.5 bg-[var(--ink)] transition-transform data-[state=checked]:translate-x-5" />
       </SwitchPrimitive.Root>

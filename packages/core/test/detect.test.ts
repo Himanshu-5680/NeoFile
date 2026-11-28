@@ -14,6 +14,28 @@ describe("detectFile", () => {
     expect(detectFile("notes.txt")).toMatchObject({ mode: "edit", highlighter: "plain" });
   });
 
+  it("edits notebooks and common source and configuration formats as text", () => {
+    expect(detectFile("analysis.ipynb")).toMatchObject({
+      kind: "text",
+      mode: "edit",
+      highlighter: "json",
+      displayLanguage: "Jupyter Notebook",
+      limit: expect.stringContaining("does not run notebook code"),
+    });
+    for (const name of [
+      "Dockerfile",
+      "Makefile",
+      "settings.conf",
+      "task.ps1",
+      "module.kt",
+      "README.mdx",
+      ".dockerignore",
+    ]) {
+      expect(detectFile(name).kind, name).toBe("text");
+      expect(detectFile(name).mode, name).toBe("edit");
+    }
+  });
+
   it("treats spreadsheets differently from office documents", () => {
     expect(detectFile("budget.csv").mode).toBe("edit");
     expect(detectFile("budget.tsv").kind).toBe("csv");
@@ -33,6 +55,10 @@ describe("detectFile", () => {
   it("falls back to mime and binary", () => {
     expect(detectFile("noext", "text/plain").kind).toBe("text");
     expect(detectFile("blob.bin").kind).toBe("binary");
+    for (const name of ["archive.zip", "program.exe", "module.pyc", "book.doc"]) {
+      expect(detectFile(name).mode, name).toBe("view");
+      expect(detectFile(name).kind, name).toBe("binary");
+    }
   });
 
   it("reads the last extension and dotfiles", () => {

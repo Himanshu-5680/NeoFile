@@ -6,7 +6,7 @@
 
 <p align="center">
   An offline file desk for Android, Windows, macOS, iOS, and Linux.<br>
-  Text and CSV are editable. Word, PowerPoint, PDF, and media are honest previews.
+  Edit text, code, configuration files, CSV, and notebook JSON. Documents and media stay honest previews.
 </p>
 
 <p align="center">
@@ -79,15 +79,17 @@ There is no free universal install of the native iOS package. The unsigned IPA h
 
 ## What it does
 
-- Edit text and code, with syntax colors for JavaScript, TypeScript, JSX, Python, HTML, CSS, JSON, XML, Java, and Markdown.
+- Edit text, code, and configuration files, with syntax colors for JavaScript, TypeScript, JSX, Python, HTML, CSS, JSON, XML, Java, and Markdown.
+- Edit Jupyter notebooks as JSON. Notebook code is not executed.
 - Edit CSV and TSV, including quoted commas.
 - Edit spreadsheet **values** in xlsx, xlsm, and xls.
 - View PDF with text selection and search.
 - Preview Word as HTML plus extracted text. Export HTML is not a Word file.
 - Preview PowerPoint as slide text and embedded pictures. Layout is not rendered.
 - Play images, audio, and video. Save exports the original. There is no media editor.
+- Open unsupported binary files in a read-only hex preview.
 - Tabs, split view, search, drag-and-drop, a folder tree with multi-select, and local snapshots.
-- Light mode uses a coral accent. Dark mode is one tap and uses neon green. You can set a custom accent.
+- Light and dark themes use distinct high-contrast palettes, locally bundled Baloo Bhai 2 typography, and optional custom accents.
 - Android: swipe between files in a folder, and an offline inbox for files received from the share sheet.
 
 ## Known limits
