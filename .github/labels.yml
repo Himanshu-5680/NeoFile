@@ -12,7 +12,7 @@
 
 - name: documentation
   color: "0075ca"
-  description: Documentation, website, or wiki
+  description: Documentation or wiki
 
 - name: question
   color: "d876e3"

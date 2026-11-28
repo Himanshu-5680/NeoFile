@@ -8,7 +8,7 @@ apps/web/android    Capacitor Android project and the NeoFile Java plugin
 apps/web/ios        Capacitor iOS project
 apps/desktop        Tauri 2 shell
 packages/core       parsing, snapshots, search, theme, sanitizer, tests
-website             static project site
+GitHub Pages         browser app built from apps/web
 ```
 
 ## Shared UI
@@ -37,9 +37,9 @@ Release APKs are signed either with the GitHub Actions keystore secrets or with 
 
 The iOS project is the Capacitor shell. `scripts/build-ios-unsigned.sh` builds with `CODE_SIGNING_ALLOWED=NO` and zips `Payload/App.app` into an IPA. The repository does not contain a provisioning profile, and that IPA is not a normal iPhone install. The hosted web desk is a separate browser build of the same UI.
 
-## Website
+## Project site
 
-`website/` is a static neo-brutalist page. Fonts are files in `website/fonts`. GitHub Pages publishes that directory as-is. It is not the app.
+GitHub Pages publishes the PWA build of `apps/web` at the project-site root. The browser UI is the project website; there is no separate static marketing site.
 
 ## What is deliberately missing
 

@@ -7,14 +7,14 @@
 <p align="center">
   An offline file desk for Android, Windows, macOS, iOS, and Linux.<br>
   Edit text, code, configuration files, CSV, and notebook JSON. Documents and media stay honest previews.<br>
-  <a href="https://himanshu-5680.github.io/NeoFile/desk/">Open the NeoFile web desk</a>
+  <a href="https://himanshu-5680.github.io/NeoFile/">Open NeoFile in your browser</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/Himanshu-5680/NeoFile/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Himanshu-5680/NeoFile/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/Himanshu-5680/NeoFile/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/Himanshu-5680/NeoFile?display_name=tag"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/Himanshu-5680/NeoFile"></a>
-  <a href="https://himanshu-5680.github.io/NeoFile/"><img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fhimanshu-5680.github.io%2FNeoFile%2F&label=docs&up_message=online&down_message=offline"></a>
+  <a href="https://himanshu-5680.github.io/NeoFile/"><img alt="Web app" src="https://img.shields.io/website?url=https%3A%2F%2Fhimanshu-5680.github.io%2FNeoFile%2F&label=web%20app&up_message=online&down_message=offline"></a>
 </p>
 
 <p align="center">
@@ -42,9 +42,9 @@
 
 ## Download
 
-Current release: [v1.0.1](https://github.com/Himanshu-5680/NeoFile/releases/tag/v1.0.1). One recommended file for each system is below. The project site also hosts [NeoFile web desk](https://himanshu-5680.github.io/NeoFile/desk/), which is the browser app. It is not the native iOS app.
+Current release: [v1.0.1](https://github.com/Himanshu-5680/NeoFile/releases/tag/v1.0.1). One recommended file for each system is below. The [project site](https://himanshu-5680.github.io/NeoFile/) is the browser app, not the native iOS app.
 
-- **Browser, including iPhone:** [Open the web desk](https://himanshu-5680.github.io/NeoFile/desk/). On iPhone, use Safari's Share menu and choose Add to Home Screen. The first open needs a network connection; later opens can work offline until the browser removes its saved copy.
+- **Browser, including iPhone:** [Open NeoFile](https://himanshu-5680.github.io/NeoFile/). On iPhone, use Safari's Share menu and choose Add to Home Screen. The first open needs a network connection; later opens can work offline until the browser removes its saved copy.
 - **Android:** [NeoFile-1.0.1.apk](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile-1.0.1.apk). Android may ask permission to install apps from that source; this is not a store install.
 - **Windows 64-bit:** [NeoFile_1.0.1_x64.msi](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_x64.msi). SmartScreen may show a warning because the installer is not Authenticode-signed.
 - **macOS Apple silicon:** [NeoFile_1.0.1_aarch64.dmg](https://github.com/Himanshu-5680/NeoFile/releases/download/v1.0.1/NeoFile_1.0.1_aarch64.dmg). The app is not notarized, so Gatekeeper can block it.
@@ -148,14 +148,13 @@ apps/desktop            Tauri shell
 packages/core           parsing, snapshots, search, theme, tests
 docs/screenshots        captures of the running app
 docs/wiki               install, build, FAQ, and architecture pages
-website                 static project site
 scripts                 icon render, APK, unsigned IPA, Windows installer
 .github/workflows       CI, Pages, and the multi-platform release
 ```
 
 ## Docs
 
-The project site is [himanshu-5680.github.io/NeoFile](https://himanshu-5680.github.io/NeoFile/). Wiki-ready pages are in [docs/wiki](docs/wiki/Home.md): install steps per platform, [building from source](docs/wiki/Building-from-source.md), the [FAQ](docs/wiki/FAQ.md), and [architecture](docs/wiki/Architecture.md). The [roadmap](docs/ROADMAP.md) lists what 1.0 ships and what is intentionally out of scope.
+The [project site](https://himanshu-5680.github.io/NeoFile/) serves the updated browser app at its root. Wiki-ready pages are in [docs/wiki](docs/wiki/Home.md): install steps per platform, [building from source](docs/wiki/Building-from-source.md), the [FAQ](docs/wiki/FAQ.md), and [architecture](docs/wiki/Architecture.md). The [roadmap](docs/ROADMAP.md) lists what 1.0 ships and what is intentionally out of scope.
 
 ## Contributing
 
@@ -171,4 +170,4 @@ The app implementation was AI-assisted in [Cursor](https://cursor.com), includin
 
 ## License
 
-[MIT](LICENSE). PDF.js and SheetJS community are Apache-2.0. Mammoth is BSD. CodeMirror and JSZip are MIT. The bundled fonts are SIL Open Font License. The website layout pass credits unslop by Damir Sokolovsky, CC BY 4.0, in the site footer.
+[MIT](LICENSE). PDF.js and SheetJS community are Apache-2.0. Mammoth is BSD. CodeMirror and JSZip are MIT. The bundled fonts are SIL Open Font License.
