@@ -10,6 +10,11 @@ describe("pages workflow", () => {
     expect(yaml).toContain("administration:write");
     expect(yaml).toContain("https://api.github.com/repos/${GITHUB_REPOSITORY}/pages");
   });
+
+  it("uses a unique Pages artifact for each workflow rerun attempt", () => {
+    expect(yaml).toContain("name: github-pages-${{ github.run_attempt }}");
+    expect(yaml).toContain("artifact_name: github-pages-${{ github.run_attempt }}");
+  });
 });
 
 describe("production CSP meta policy", () => {
