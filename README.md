@@ -6,7 +6,8 @@
 
 <p align="center">
   An offline file desk for Android, Windows, macOS, iOS, and Linux.<br>
-  Edit text, code, configuration files, CSV, and notebook JSON. Documents and media stay honest previews.
+  Edit text, code, configuration files, CSV, and notebook JSON. Documents and media stay honest previews.<br>
+  <a href="https://himanshu-5680.github.io/NeoFile/desk/">Open the NeoFile web desk</a>
 </p>
 
 <p align="center">
@@ -25,13 +26,18 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/desktop-light.png" width="720" alt="NeoFile on a desktop in light mode, editing a Markdown file">
-  <img src="docs/screenshots/desktop-dark.png" width="720" alt="NeoFile on a desktop in dark mode">
+  <img src="docs/screenshots/desktop-light.png" width="720" alt="NeoFile web desk in light mode, editing a Markdown file">
+  <img src="docs/screenshots/desktop-dark.png" width="720" alt="NeoFile web desk in dark mode, editing a Markdown file">
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/mobile-light.png" width="240" alt="NeoFile on a phone in light mode">
-  <img src="docs/screenshots/mobile-dark.png" width="240" alt="NeoFile on a phone in dark mode">
+  <img src="docs/screenshots/mobile-light.png" width="240" alt="NeoFile web desk on a phone in light mode">
+  <img src="docs/screenshots/mobile-dark.png" width="240" alt="NeoFile web desk on a phone in dark mode">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/desktop-light-home.png" width="720" alt="NeoFile web desk home screen in light mode">
+  <img src="docs/screenshots/desktop-light-sheet.png" width="720" alt="NeoFile CSV spreadsheet editor in light mode">
 </p>
 
 ## Download
