@@ -1,7 +1,8 @@
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = new URL("..", import.meta.url).pathname;
+const root = fileURLToPath(new URL("..", import.meta.url));
 const skip = new Set(["node_modules", "dist", "target", "build", ".gradle", "artifacts"]);
 const include = new Set([".ts", ".tsx", ".js", ".mjs", ".css", ".html", ".json", ".rs", ".java", ".kt", ".xml", ".md", ".gradle", ".toml", ".ps1", ".sh", ".yml"]);
 
@@ -11,10 +12,11 @@ function walk(dir) {
   for (const name of readdirSync(dir)) {
     if (skip.has(name) || name.startsWith(".")) continue;
     const path = join(dir, name);
-    if (path.includes(join("ios", "App", "App", "public")) || path.includes(join("android", "app", "src", "main", "assets"))) continue;
+    const portablePath = path.replace(/\\/g, "/");
+    if (portablePath.includes("/ios/App/App/public/") || portablePath.includes("/android/app/src/main/assets/")) continue;
     const stat = statSync(path);
     if (stat.isDirectory()) {
-      if (path.endsWith("/android/app/build") || path.includes("/src-tauri/gen")) continue;
+      if (portablePath.endsWith("/android/app/build") || portablePath.includes("/src-tauri/gen/")) continue;
       walk(path);
       continue;
     }

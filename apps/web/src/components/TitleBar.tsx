@@ -38,7 +38,7 @@ export function TitleBar() {
         >
           <div style={{ padding: 8 }} onKeyDown={(event) => event.stopPropagation()}>
             <label className="tiny" htmlFor="accent">Custom accent</label>
-            <input id="accent" type="color" value={theme.accent} onChange={(event) => store.setAccent(event.target.value)} style={{ width: "100%", height: 36, border: "3px solid var(--line)", background: "transparent" }} />
+            <input id="accent" type="color" value={theme.accent} onChange={(event) => store.setAccent(event.target.value)} style={{ width: "100%", height: 36, border: "2px solid var(--line)", background: "transparent" }} />
             <Button size="sm" onClick={() => store.resetAccent()} style={{ marginTop: 8 }}>Use the built-in accent</Button>
           </div>
           <MenuItem onSelect={() => store.setAbout(true)}>What NeoFile edits</MenuItem>

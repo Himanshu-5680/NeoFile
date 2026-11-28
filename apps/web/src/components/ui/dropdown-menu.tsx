@@ -6,7 +6,7 @@ export function Menu({ trigger, children }: { trigger: ReactNode; children: Reac
     <Dropdown.Root>
       <Dropdown.Trigger asChild>{trigger}</Dropdown.Trigger>
       <Dropdown.Portal>
-        <Dropdown.Content className="z-50 min-w-56 border-[3px] border-[var(--line)] bg-[var(--surface)] p-2 text-[var(--ink)] shadow-[6px_6px_0_var(--shadow)]" sideOffset={6}>
+        <Dropdown.Content className="z-50 min-w-56 rounded-md border-2 border-[var(--line)] bg-[var(--surface)] p-2 text-[var(--ink)] shadow-[5px_5px_0_var(--shadow)]" sideOffset={6}>
           {children}
         </Dropdown.Content>
       </Dropdown.Portal>

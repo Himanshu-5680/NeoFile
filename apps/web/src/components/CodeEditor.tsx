@@ -25,7 +25,7 @@ function chrome(): Extension {
   return EditorView.theme({
     "&": { backgroundColor: "var(--surface)", color: "var(--ink)", height: "100%", fontSize: "13.5px" },
     ".cm-content": { caretColor: "var(--accent)", padding: "12px 0" },
-    ".cm-gutters": { backgroundColor: "var(--bg)", color: "var(--muted)", borderRight: "3px solid var(--line)" },
+    ".cm-gutters": { backgroundColor: "var(--bg)", color: "var(--muted)", borderRight: "2px solid var(--line)" },
     ".cm-activeLine": { backgroundColor: "color-mix(in srgb, var(--accent) 14%, transparent)" },
     ".cm-activeLineGutter": { backgroundColor: "transparent", color: "var(--ink)" },
     "&.cm-focused": { outline: "none" },

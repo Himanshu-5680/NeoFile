@@ -20,12 +20,12 @@ export interface ResolvedTheme {
 }
 
 export const DEFAULT_ACCENT: Record<ThemeMode, string> = {
-  light: "#ff4d2e",
+  light: "#b8ff00",
   dark: "#c6ff3d",
 };
 
-const LIGHT_INK = "#141414";
-const LIGHT_PAPER = "#fffdf8";
+const LIGHT_INK = "#171715";
+const LIGHT_PAPER = "#fffdf7";
 
 export function normalizeHex(value: string): string | null {
   const raw = value.trim().replace(/^#/, "");
@@ -75,12 +75,12 @@ export function resolveTheme(prefs: ThemePrefs): ResolvedTheme {
     mode: prefs.mode,
     accent,
     accentInk: inkForAccent(accent),
-    bg: dark ? "#161616" : "#f3ede2",
-    surface: dark ? "#222220" : "#fffdf8",
-    ink: dark ? "#f4f0e6" : "#141414",
-    muted: dark ? "#c8c2b4" : "#5c564e",
-    line: dark ? "#f4f0e6" : "#141414",
-    shadow: dark ? "#000000" : "#141414",
+    bg: dark ? "#111318" : "#f8f2e4",
+    surface: dark ? "#1b1e25" : "#fffdf7",
+    ink: dark ? "#f8f5eb" : "#171715",
+    muted: dark ? "#c0c1bf" : "#5b584f",
+    line: dark ? "#e8e4d8" : "#1a1a18",
+    shadow: dark ? "#07080a" : "#171715",
     customAccent: custom !== null,
   };
 }

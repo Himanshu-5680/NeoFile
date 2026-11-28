@@ -6,7 +6,8 @@
 
 <p align="center">
   An offline file desk for Android, Windows, macOS, iOS, and Linux.<br>
-  Text and CSV are editable. Word, PowerPoint, PDF, and media are honest previews.
+  Edit text, code, configuration files, CSV, and notebook JSON. Documents and media stay honest previews.<br>
+  <a href="https://himanshu-5680.github.io/NeoFile/desk/">Open the NeoFile web desk</a>
 </p>
 
 <p align="center">
@@ -25,13 +26,18 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/desktop-light.png" width="720" alt="NeoFile on a desktop in light mode, editing a Markdown file">
-  <img src="docs/screenshots/desktop-dark.png" width="720" alt="NeoFile on a desktop in dark mode">
+  <img src="docs/screenshots/desktop-light.png" width="720" alt="NeoFile web desk in light mode, editing a Markdown file">
+  <img src="docs/screenshots/desktop-dark.png" width="720" alt="NeoFile web desk in dark mode, editing a Markdown file">
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/mobile-light.png" width="240" alt="NeoFile on a phone in light mode">
-  <img src="docs/screenshots/mobile-dark.png" width="240" alt="NeoFile on a phone in dark mode">
+  <img src="docs/screenshots/mobile-light.png" width="240" alt="NeoFile web desk on a phone in light mode">
+  <img src="docs/screenshots/mobile-dark.png" width="240" alt="NeoFile web desk on a phone in dark mode">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/desktop-light-home.png" width="720" alt="NeoFile web desk home screen in light mode">
+  <img src="docs/screenshots/desktop-light-sheet.png" width="720" alt="NeoFile CSV spreadsheet editor in light mode">
 </p>
 
 ## Download
@@ -79,15 +85,17 @@ There is no free universal install of the native iOS package. The unsigned IPA h
 
 ## What it does
 
-- Edit text and code, with syntax colors for JavaScript, TypeScript, JSX, Python, HTML, CSS, JSON, XML, Java, and Markdown.
+- Edit text, code, and configuration files, with syntax colors for JavaScript, TypeScript, JSX, Python, HTML, CSS, JSON, XML, Java, and Markdown.
+- Edit Jupyter notebooks as JSON. Notebook code is not executed.
 - Edit CSV and TSV, including quoted commas.
 - Edit spreadsheet **values** in xlsx, xlsm, and xls.
 - View PDF with text selection and search.
 - Preview Word as HTML plus extracted text. Export HTML is not a Word file.
 - Preview PowerPoint as slide text and embedded pictures. Layout is not rendered.
 - Play images, audio, and video. Save exports the original. There is no media editor.
+- Open unsupported binary files in a read-only hex preview.
 - Tabs, split view, search, drag-and-drop, a folder tree with multi-select, and local snapshots.
-- Light mode uses a coral accent. Dark mode is one tap and uses neon green. You can set a custom accent.
+- Light and dark themes use distinct high-contrast palettes, locally bundled Baloo Bhai 2 typography, and optional custom accents.
 - Android: swipe between files in a folder, and an offline inbox for files received from the share sheet.
 
 ## Known limits
